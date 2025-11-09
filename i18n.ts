@@ -5,7 +5,7 @@ export const locales = ['en', 'es', 'sr'] as const;
 export type Locale = typeof locales[number];
 
 export const defaultLocale: Locale = 'en';
-export const localePrefix = 'as-needed'; // ili 'always'
+export const localePrefix = 'as-needed';
 
 const loaders: Record<Locale, () => Promise<any>> = {
   en: () => import('./src/lib/i18n/messages/en').then(m => m.default),
@@ -13,13 +13,16 @@ const loaders: Record<Locale, () => Promise<any>> = {
   sr: () => import('./src/lib/i18n/messages/sr').then(m => m.default)
 };
 
+// (ostaje zbog middleware-a i API-ja, ok je da stoji)
 export default getRequestConfig(async ({ locale }) => {
   const l = typeof locale === 'string' ? locale : defaultLocale;
-  const safeLocale: Locale =
-    (locales as readonly string[]).includes(l) ? (l as Locale) : defaultLocale;
-
-  return {
-    locale: safeLocale,
-    messages: await loaders[safeLocale]()
-  };
+  const safe: Locale = (locales as readonly string[]).includes(l) ? (l as Locale) : defaultLocale;
+  return { locale: safe, messages: await loaders[safe]() };
 });
+
+// ✅ DIRECT LOADER za layout (zaobilazi getMessages)
+export async function loadMessages(locale?: string) {
+  const l = typeof locale === 'string' ? locale : defaultLocale;
+  const safe: Locale = (locales as readonly string[]).includes(l) ? (l as Locale) : defaultLocale;
+  return loaders[safe]();
+}
