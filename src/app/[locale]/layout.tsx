@@ -7,16 +7,22 @@ export function generateStaticParams() {
   return [{locale:'en'},{locale:'es'},{locale:'sr'}]
 }
 
-async function getMessages(locale: string) {
-  try { return (await import(`@/lib/i18n/messages/${locale}.json`)).default }
-  catch { return (await import('@/lib/i18n/messages/en.json')).default }
-}
+// statična mapa ka TS modulima (bez JSON import problema)
+const dictionaries = {
+  en: () => import('../../lib/i18n/messages/en').then(m => m.default),
+  es: () => import('../../lib/i18n/messages/es').then(m => m.default),
+  sr: () => import('../../lib/i18n/messages/sr').then(m => m.default)
+} as const
 
 export default async function RootLayout({
-  children, params:{locale}
-}: {children: ReactNode, params:{locale: string}}) {
+  children,
+  params: { locale }
+}: {
+  children: ReactNode
+  params: { locale: 'en' | 'es' | 'sr' }
+}) {
   if (!['en','es','sr'].includes(locale)) notFound()
-  const messages = await getMessages(locale)
+  const messages = (await dictionaries[locale]()) // fallback ti više ni ne treba
 
   return (
     <html lang={locale}>
