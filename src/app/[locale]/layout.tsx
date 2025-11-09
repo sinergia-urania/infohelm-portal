@@ -1,28 +1,32 @@
+// src/app/[locale]/layout.tsx
 import '../globals.css'
-import {NextIntlClientProvider} from 'next-intl'
-import {ReactNode} from 'react'
-import {notFound} from 'next/navigation'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
+import type { ReactNode } from 'react'
+import { notFound } from 'next/navigation'
 
 export function generateStaticParams() {
-  return [{locale:'en'},{locale:'es'},{locale:'sr'}]
+  return [{ locale: 'en' }, { locale: 'es' }, { locale: 'sr' }]
 }
 
-// statična mapa ka TS modulima (bez JSON import problema)
-const dictionaries = {
-  en: () => import('../../lib/i18n/messages/en').then(m => m.default),
-  es: () => import('../../lib/i18n/messages/es').then(m => m.default),
-  sr: () => import('../../lib/i18n/messages/sr').then(m => m.default)
-} as const
+const SUPPORTED = ['en', 'es', 'sr'] as const
+type Locale = typeof SUPPORTED[number]
 
-export default async function RootLayout({
-  children,
-  params: { locale }
-}: {
+// Next 16: params ponekad izgleda kao Promise — zato await
+type MaybePromise<T> = T | Promise<T>
+type LayoutProps = {
   children: ReactNode
-  params: { locale: 'en' | 'es' | 'sr' }
-}) {
-  if (!['en','es','sr'].includes(locale)) notFound()
-  const messages = (await dictionaries[locale]()) // fallback ti više ni ne treba
+  params: MaybePromise<{ locale?: string }>
+}
+
+export default async function RootLayout({ children, params }: LayoutProps) {
+  const { locale: raw } = await params
+  const locale: Locale = SUPPORTED.includes(raw as Locale) ? (raw as Locale) : 'en'
+
+  if (!SUPPORTED.includes(locale)) notFound()
+
+  // next-intl čita locale iz i18n/middleware; ovde samo povučemo poruke
+  const messages = await getMessages()
 
   return (
     <html lang={locale}>
