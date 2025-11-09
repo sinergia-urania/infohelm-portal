@@ -5,9 +5,12 @@ import type { ReactNode } from 'react'
 import { notFound } from 'next/navigation'
 import { locales as SUPPORTED, loadMessages } from '../../../i18n'
 
-export function generateStaticParams() {
-  return SUPPORTED.map((l) => ({ locale: l }))
-}
+// ❗ Onemogući SSG/ISR za ovaj segment → nema prerendera u buildu
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+export const fetchCache = 'force-no-store'
+
+// važno: NEMA generateStaticParams ovde
 
 type MaybePromise<T> = T | Promise<T>
 type LayoutProps = { children: ReactNode; params: MaybePromise<{ locale?: string }> }
@@ -19,7 +22,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
   if (!supported.includes(locale)) notFound()
 
-  // ⬇️ direktno čitamo poruke (bez getMessages => bez traženja config-a)
+  // direktno učitavanje poruka (zaobilazi getMessages/pronalaženje configa u prerenderu)
   const messages = await loadMessages(locale)
 
   return (
