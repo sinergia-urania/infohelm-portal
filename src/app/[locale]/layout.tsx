@@ -3,7 +3,8 @@ import '../globals.css'
 import { NextIntlClientProvider } from 'next-intl'
 import type { ReactNode } from 'react'
 import { notFound } from 'next/navigation'
-import { locales as SUPPORTED, loadMessages } from '../../../i18n'
+import { getMessages, setRequestLocale } from 'next-intl/server'
+import { locales as SUPPORTED } from '../../../i18n'
 
 // ❗ Onemogući SSG/ISR za ovaj segment → nema prerendera u buildu
 export const dynamic = 'force-dynamic'
@@ -12,18 +13,21 @@ export const fetchCache = 'force-no-store'
 
 // važno: NEMA generateStaticParams ovde
 
-type MaybePromise<T> = T | Promise<T>
-type LayoutProps = { children: ReactNode; params: MaybePromise<{ locale?: string }> }
+type LayoutProps = { children: ReactNode; params: { locale?: string } }
 
 export default async function RootLayout({ children, params }: LayoutProps) {
-  const { locale: raw } = await params
+  const { locale: raw } = params
   const supported = SUPPORTED as readonly string[]
-  const locale = supported.includes(raw ?? '') ? (raw as string) : 'en'
 
-  if (!supported.includes(locale)) notFound()
+  if (!raw || !supported.includes(raw)) {
+    notFound()
+  }
 
-  // direktno učitavanje poruka (zaobilazi getMessages/pronalaženje configa u prerenderu)
-  const messages = await loadMessages(locale)
+  const locale = raw as string
+
+  setRequestLocale(locale)
+
+  const messages = await getMessages()
 
   return (
     <html lang={locale}>
