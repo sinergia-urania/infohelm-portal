@@ -5,9 +5,11 @@ export const locales = ['en', 'es', 'sr'] as const;
 export type Locale = typeof locales[number];
 
 export const defaultLocale: Locale = 'en';
-export const localePrefix = 'as-needed';
+export const localePrefix = 'always';
 
-const loaders: Record<Locale, () => Promise<any>> = {
+type Messages = Record<string, unknown>;
+
+const loaders: Record<Locale, () => Promise<Messages>> = {
   en: () => import('./src/lib/i18n/messages/en').then(m => m.default),
   es: () => import('./src/lib/i18n/messages/es').then(m => m.default),
   sr: () => import('./src/lib/i18n/messages/sr').then(m => m.default)
