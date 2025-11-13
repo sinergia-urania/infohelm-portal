@@ -1,14 +1,15 @@
+import { NextRequest } from 'next/server';
 import { listAllArticles, loadArticle } from '@/lib/content';
 import { buildRssXML } from '@/lib/rss';
 
 const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.infohelm.org').replace(/\/+$/, '');
 
 export async function GET(
-  _req: Request,
-  ctx: { params: Promise<{ locale: 'en' | 'es' | 'sr'; cat: string }> }
+  _req: NextRequest,
+  context: { params: Promise<{ locale: string; cat: string }> }
 ) {
-  // ⬅️ FIX: params je Promise → await
-  const { locale = 'en', cat = 'news' } = await ctx.params;
+  const { locale = 'en', cat = 'news' } = await context.params;
+
 
   // Učitaj sve članke u datoj kategoriji/jeziku
   const all = (await listAllArticles()).filter(e => e.locale === locale && e.category === cat);

@@ -17,7 +17,7 @@ export function buildRssXML(opts: {
   description?: string;
   siteUrl: string;             // bez kosih na kraju
   feedUrl: string;             // apsolutni URL ovog feeda
-  language: 'en' | 'es' | 'sr';
+  language: string;            // <— ranije 'en' | 'es' | 'sr'
   items: RssItem[];
 }) {
   const { title, description = '', siteUrl, feedUrl, language, items } = opts;

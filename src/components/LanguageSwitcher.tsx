@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { useLocale } from 'next-intl';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const LOCALES = ['en', 'es', 'sr'] as const;
 type Locale = (typeof LOCALES)[number];
@@ -72,17 +72,10 @@ function FlagIcon({ loc, className }: { loc: Locale; className?: string }) {
 export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname() || '/';
-  const searchParams = useSearchParams();
   const currentLocale = useLocale() as Locale;
 
   const [open, setOpen] = React.useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
-
-  // Sačuvaj query string ako postoji
-  const qs = React.useMemo(() => {
-    const s = searchParams?.toString();
-    return s ? `?${s}` : '';
-  }, [searchParams]);
 
   // Klik van menija + ESC
   React.useEffect(() => {
@@ -99,6 +92,10 @@ export default function LanguageSwitcher() {
   }, []);
 
   const changeLocale = (loc: Locale) => {
+    const qs =
+      typeof window !== 'undefined' && window.location.search
+        ? window.location.search
+        : '';
     const href = buildLocalePath(loc, pathname, qs);
     setOpen(false);
     router.push(href, { scroll: false });
@@ -106,13 +103,13 @@ export default function LanguageSwitcher() {
 
   return (
     <div ref={ref} className="relative">
-      {/* Dugme — VRAĆENA zlatna boja globusa */}
+      {/* Dugme — zlatna boja globusa */}
       <button
         type="button"
         aria-label="Change language"
         aria-haspopup="menu"
         aria-expanded={open}
-        onClick={() => setOpen(o => !o)}
+        onClick={() => setOpen((o) => !o)}
         className="h-10 w-10 inline-flex items-center justify-center rounded-md
                    border border-emerald-500/30 hover:bg-black/60 text-amber-400"
       >
