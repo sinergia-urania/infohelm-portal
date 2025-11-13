@@ -1,14 +1,10 @@
-import createMDX from '@next/mdx'
+import createNextIntlPlugin from 'next-intl/plugin';
 
-const withMDX = createMDX({
-  // bez remark/rehype plugina za sada
-  extension: /\.mdx?$/
-})
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['ts','tsx','mdx'],
-  reactCompiler: true
-}
+  reactStrictMode: true
+};
 
-export default withMDX(nextConfig)
+export default withNextIntl(nextConfig);

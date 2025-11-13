@@ -12,10 +12,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* === DARK po OS-u: čist crni i svetli foreground === */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #f5f5f5;
+    color-scheme: dark;
   }
 }
 
@@ -23,4 +25,97 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* === Dark fallback (ako bilo gde nešto "izbeli") — ČISTA CRNA === */
+html.dark,
+html.dark body {
+  background-color: #000000 !important;
+  color: rgb(250 250 250);
+}
+
+/* Selekt boja */
+::selection { background: rgba(250, 250, 250, 0.2); }
+html:not(.dark) ::selection { background: rgba(0, 0, 0, 0.12); }
+
+/* Readable <select> dropdown u oba moda */
+select option {
+  background-color: #ffffff;
+  color: #111827;
+}
+html.dark select,
+html.dark select option {
+  background-color: #000000;
+  color: #f4f4f5;
+}
+
+/* ============================================================
+   HEADER & CHIPOVI: uvek crna pozadina + zelena tipografija
+   (radi i u light i u dark modu, ne zavisi od .dark klase)
+   Target: <header class="sticky top-0 ...">
+   ============================================================ */
+header.sticky.top-0 {
+  background-color: #000 !important;
+  color: rgb(110 231 183) !important; /* emerald-300 */
+  border-bottom: 1px solid rgba(16, 185, 129, 0.25) !important; /* emerald-500/25 */
+  backdrop-filter: none !important;
+}
+
+/* Linkovi, dugmad, label-e u headeru */
+header.sticky.top-0 a,
+header.sticky.top-0 button,
+header.sticky.top-0 label {
+  color: rgb(110 231 183) !important;
+}
+
+/* Select u LanguageSwitcher-u (kad je u headeru) */
+header.sticky.top-0 select,
+header.sticky.top-0 select option {
+  background-color: #000 !important;
+  color: rgb(110 231 183) !important;
+  border-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+/* Dugmad (hamburger, theme toggle) – border i hover */
+header.sticky.top-0 button {
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  background: transparent !important;
+}
+header.sticky.top-0 button:hover {
+  background-color: rgba(16, 185, 129, 0.10) !important; /* emerald-500/10 */
+}
+
+/* Chipovi (kategorije) */
+header.sticky.top-0 a.rounded-full {
+  background: transparent !important;
+  color: rgb(110 231 183) !important; /* emerald-300 */
+  border: 1px solid rgba(16, 185, 129, 0.25) !important; /* emerald-500/25 */
+}
+
+/* Hover za chipove i nav linkove */
+header.sticky.top-0 a.rounded-full:hover,
+header.sticky.top-0 nav a:hover {
+  background-color: rgba(16, 185, 129, 0.10) !important; /* emerald-500/10 */
+}
+
+/* Aktivni chip (aria-current="page") */
+header.sticky.top-0 a.rounded-full[aria-current="page"] {
+  color: rgb(209 250 229) !important;                 /* emerald-200 */
+  background-color: rgba(16, 185, 129, 0.15) !important; /* emerald-500/15 */
+  box-shadow: 0 0 0 1px rgb(52 211 153) !important;      /* ring-emerald-400 */
+  font-weight: 600 !important;
+}
+
+/* Granice između gornje/donje trake headera */
+header.sticky.top-0 > .border-t,
+header.sticky.top-0 .border-t {
+  border-top-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+/* Mobilne "mask" senke na horizontalnom scrollu čipova — crni fade */
+header.sticky.top-0 .pointer-events-none.absolute.inset-y-0.left-0 {
+  background: linear-gradient(to right, #000 0%, rgba(0,0,0,0) 100%) !important;
+}
+header.sticky.top-0 .pointer-events-none.absolute.inset-y-0.right-0 {
+  background: linear-gradient(to left, #000 0%, rgba(0,0,0,0) 100%) !important;
 }
