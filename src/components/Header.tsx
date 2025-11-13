@@ -8,22 +8,30 @@ import { useLocale } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import LanguageSwitcher from './LanguageSwitcher';
 
-const LABELS: Record<string, {home: string; about: string; menu: string; theme: string; dark: string; light: string}> = {
-  en: {home: 'Home', about: 'About', menu: 'Menu', theme: 'Theme', dark: 'Dark', light: 'Light'},
-  es: {home: 'Inicio', about: 'Acerca', menu: 'Menú', theme: 'Tema', dark: 'Oscuro', light: 'Claro'},
-  sr: {home: 'Početna', about: 'O portalu', menu: 'Meni', theme: 'Tema', dark: 'Tamni', light: 'Svetli'}
+const LABELS: Record<
+  string,
+  { home: string; about: string; menu: string; theme: string; dark: string; light: string }
+> = {
+  en: { home: 'Home', about: 'About', menu: 'Menu', theme: 'Theme', dark: 'Dark', light: 'Light' },
+  es: { home: 'Inicio', about: 'Acerca', menu: 'Menú', theme: 'Tema', dark: 'Oscuro', light: 'Claro' },
+  sr: { home: 'Početna', about: 'O portalu', menu: 'Meni', theme: 'Tema', dark: 'Tamni', light: 'Svetli' },
 };
 
 // Kategorije (isti redosled kao na sajtu; Apps dodata na kraj)
 const CAT_DEF = [
-  { slug: 'news',                    en: 'News',                         es: 'Novedades',                      sr: 'Novosti' },
-  { slug: 'new-tech',                en: 'New Technologies',             es: 'Nuevas tecnologías',             sr: 'Nove tehnologije' },
-  { slug: 'crypto-economy',          en: 'Crypto & Economy',             es: 'Cripto y economía',              sr: 'Kripto i ekonomija' },
-  { slug: 'science-space',           en: 'Science & Space',              es: 'Ciencia y espacio',              sr: 'Nauka i svemir' },
-  { slug: 'reviews',                 en: 'Device Reviews',               es: 'Reseñas de dispositivos',        sr: 'Recenzije uređaja' },
-  { slug: 'software-gaming',         en: 'Software & Gaming',            es: 'Software y gaming',              sr: 'Softver i gejming' },
-  { slug: 'lifestyle-entertainment', en: 'Lifestyle & Entertainment',    es: 'Estilo de vida y entretenimiento', sr: 'Lifestyle i zabava' },
-  { slug: 'apps',                    en: 'Apps',                         es: 'Aplicaciones',                   sr: 'Aplikacije' },
+  { slug: 'news', en: 'News', es: 'Novedades', sr: 'Novosti' },
+  { slug: 'new-tech', en: 'New Technologies', es: 'Nuevas tecnologías', sr: 'Nove tehnologije' },
+  { slug: 'crypto-economy', en: 'Crypto & Economy', es: 'Cripto y economía', sr: 'Kripto i ekonomija' },
+  { slug: 'science-space', en: 'Science & Space', es: 'Ciencia y espacio', sr: 'Nauka i svemir' },
+  { slug: 'reviews', en: 'Device Reviews', es: 'Reseñas de dispositivos', sr: 'Recenzije uređaja' },
+  { slug: 'software-gaming', en: 'Software & Gaming', es: 'Software y gaming', sr: 'Softver i gejming' },
+  {
+    slug: 'lifestyle-entertainment',
+    en: 'Lifestyle & Entertainment',
+    es: 'Estilo de vida y entretenimiento',
+    sr: 'Lifestyle i zabava',
+  },
+  { slug: 'apps', en: 'Apps', es: 'Aplicaciones', sr: 'Aplikacije' },
 ] as const;
 
 function hrefWithLocale(locale: string, href: string) {
@@ -33,8 +41,14 @@ function hrefWithLocale(locale: string, href: string) {
 }
 
 // === Theme toggle (dark <-> light) ===
-function ThemeToggle({ label, darkLabel, lightLabel }:{
-  label:string; darkLabel:string; lightLabel:string
+function ThemeToggle({
+  label,
+  darkLabel,
+  lightLabel,
+}: {
+  label: string;
+  darkLabel: string;
+  lightLabel: string;
 }) {
   const [mounted, setMounted] = React.useState(false);
   const [isDark, setIsDark] = React.useState(true); // default dark
@@ -43,17 +57,19 @@ function ThemeToggle({ label, darkLabel, lightLabel }:{
     setMounted(true);
     try {
       const ls = localStorage.getItem('theme');
-      const wantDark = ls ? (ls === 'dark') : true; // default: dark
+      const wantDark = ls ? ls === 'dark' : true; // default: dark
       setIsDark(wantDark);
       const doc = document.documentElement;
-      if (wantDark) doc.classList.add('dark'); else doc.classList.remove('dark');
+      if (wantDark) doc.classList.add('dark');
+      else doc.classList.remove('dark');
     } catch {}
   }, []);
 
   React.useEffect(() => {
     if (!mounted) return;
     const doc = document.documentElement;
-    if (isDark) doc.classList.add('dark'); else doc.classList.remove('dark');
+    if (isDark) doc.classList.add('dark');
+    else doc.classList.remove('dark');
   }, [isDark, mounted]);
 
   const toggle = React.useCallback(() => {
@@ -77,9 +93,11 @@ function ThemeToggle({ label, darkLabel, lightLabel }:{
       onClick={toggle}
       aria-label={`${label}: ${isDark ? darkLabel : lightLabel}`}
       title={`${label}: ${isDark ? darkLabel : lightLabel}`}
-      className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-emerald-500/30 hover:bg-black/60 text-emerald-300"
+      className="inline-flex items-center justify-center w-10 h-10 rounded-md border border-[#39ff14]/40 hover:bg-black/60 text-[#39ff14]"
     >
-      <span aria-hidden="true" className="text-lg leading-none">{mounted && !isDark ? '☀️' : '🌙'}</span>
+      <span aria-hidden="true" className="text-lg leading-none">
+        {mounted && !isDark ? '☀️' : '🌙'}
+      </span>
     </button>
   );
 }
@@ -87,8 +105,8 @@ function ThemeToggle({ label, darkLabel, lightLabel }:{
 /** Mobilni off-canvas */
 function OffCanvas(props: {
   locale: string;
-  navPrimary: Array<{label:string; href:string}>;
-  categories: Array<{slug:string; label:string; href:string}>;
+  navPrimary: Array<{ label: string; href: string }>;
+  categories: Array<{ slug: string; label: string; href: string }>;
   activeCatHref?: string;
   onClose: () => void;
 }) {
@@ -97,9 +115,14 @@ function OffCanvas(props: {
 
   React.useEffect(() => {
     const id = requestAnimationFrame(() => setShow(true));
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') handleClose(); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') handleClose();
+    };
     window.addEventListener('keydown', onKey);
-    return () => { cancelAnimationFrame(id); window.removeEventListener('keydown', onKey); };
+    return () => {
+      cancelAnimationFrame(id);
+      window.removeEventListener('keydown', onKey);
+    };
   }, []);
 
   const handleClose = React.useCallback(() => {
@@ -111,15 +134,17 @@ function OffCanvas(props: {
     <div className="fixed inset-0 z-120 md:hidden" role="dialog" aria-modal="true">
       {/* Backdrop */}
       <div
-        className={`absolute inset-0 bg-black/70 transition-opacity duration-200 ${show ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 bg-black/70 transition-opacity duration-200 ${
+          show ? 'opacity-100' : 'opacity-0'
+        }`}
         aria-hidden="true"
         onClick={handleClose}
       />
       {/* Panel */}
       <aside
         className={`absolute right-0 top-0 z-10 h-full w-80 max-w-[85%]
-                    bg-black text-emerald-200
-                    border-l border-emerald-500/20 p-4 flex flex-col shadow-2xl
+                    bg-black text-[#39ff14]
+                    border-l border-[#39ff14]/30 p-4 flex flex-col shadow-2xl
                     transform transition-transform duration-200
                     ${show ? 'translate-x-0' : 'translate-x-full'}`}
       >
@@ -127,7 +152,7 @@ function OffCanvas(props: {
           <span className="font-semibold text-[#39ff14]">InfoHelm</span>
           <button
             type="button"
-            className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-emerald-500/30 hover:bg-black/60 text-emerald-300"
+            className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-[#39ff14]/40 hover:bg-black/60 text-[#39ff14]"
             aria-label="Close"
             onClick={handleClose}
             autoFocus
@@ -141,14 +166,14 @@ function OffCanvas(props: {
             <Link
               key={item.label}
               href={hrefWithLocale(props.locale, item.href)}
-              className="justify-start text-left px-3 py-2 rounded-md text-sm border border-emerald-500/25 hover:bg-emerald-500/10 text-emerald-200"
+              className="justify-start text-left px-3 py-2 rounded-md text-sm border border-[#39ff14] hover:bg-[#39ff14]/10 text-[#39ff14]"
               onClick={handleClose}
             >
               {item.label}
             </Link>
           ))}
 
-          <div className="mt-3 border-t border-emerald-500/20 pt-3 flex flex-col gap-2">
+          <div className="mt-3 border-t border-[#39ff14]/30 pt-3 flex flex-col gap-2">
             {categories.map((c) => {
               const active = activeCatHref === c.href;
               return (
@@ -157,8 +182,8 @@ function OffCanvas(props: {
                   href={hrefWithLocale(props.locale, c.href)}
                   aria-current={active ? 'page' : undefined}
                   className={
-                    'w-full text-left rounded-md px-3 py-2 text-sm border transition chips ' +
-                    (active ? 'ring-1 ring-emerald-400 bg-emerald-500/10 font-semibold' : '')
+                    'w-full text-left rounded-md px-3 py-2 text-sm border border-[#39ff14] text-[#39ff14] bg-black hover:bg-[#39ff14]/10 transition chips ' +
+                    (active ? 'ring-1 ring-[#39ff14] bg-[#39ff14]/15 font-semibold' : '')
                   }
                   onClick={handleClose}
                 >
@@ -170,7 +195,7 @@ function OffCanvas(props: {
         </nav>
       </aside>
     </div>,
-    document.body
+    document.body,
   );
 }
 
@@ -181,7 +206,9 @@ export default function Header() {
   const [open, setOpen] = React.useState(false);
   const [portalReady, setPortalReady] = React.useState(false);
 
-  React.useEffect(() => { setPortalReady(true); }, []);
+  React.useEffect(() => {
+    setPortalReady(true);
+  }, []);
 
   // Scroll lock
   React.useEffect(() => {
@@ -192,28 +219,36 @@ export default function Header() {
   }, [open]);
 
   const categories = React.useMemo(() => {
-    return CAT_DEF.map(c => ({
+    return CAT_DEF.map((c) => ({
       slug: c.slug,
-      label: (c as any)[locale] as string ?? c.en,
+      label: ((c as any)[locale] as string) ?? c.en,
       href: `/c/${c.slug}`,
     }));
   }, [locale]);
 
-  const newsLabel = categories.find(c => c.slug === 'news')?.label ?? 'News';
+  const newsLabel = categories.find((c) => c.slug === 'news')?.label ?? 'News';
   const navPrimary = [
-    {label: newsLabel, href: '/c/news'},
-    {label: t.about, href: '/about'},
+    { label: newsLabel, href: '/c/news' },
+    { label: t.about, href: '/about' },
   ];
 
   const normalize = (s: string) => (s.length > 1 && s.endsWith('/') ? s.slice(0, -1) : s);
   const isActive = (href: string) => normalize(pathname) === normalize(hrefWithLocale(locale, href));
 
-  const NavLink = ({href, children, className = ''}: {href: string; children: React.ReactNode; className?: string}) => (
+  const NavLink = ({
+    href,
+    children,
+    className = '',
+  }: {
+    href: string;
+    children: React.ReactNode;
+    className?: string;
+  }) => (
     <Link
       href={hrefWithLocale(locale, href)}
       className={
-        'px-3 py-2 rounded-md text-sm transition-colors text-emerald-300 hover:text-[#39ff14] ' +
-        (isActive(href) ? 'underline underline-offset-4 decoration-emerald-400/70 ' : '') +
+        'px-3 py-2 rounded-md text-sm transition-colors text-[#39ff14] hover:text-[#b4ff5c] ' +
+        (isActive(href) ? 'underline underline-offset-4 decoration-[#39ff14]/80 ' : '') +
         className
       }
       aria-current={isActive(href) ? 'page' : undefined}
@@ -224,10 +259,22 @@ export default function Header() {
   );
 
   // Čipovi: anti-wrap + snap + shrink fix za skrol
-  const ChipLink = ({label, href, active}: {label: string; href: string; active?: boolean}) => (
+  const ChipLink = ({
+    label,
+    href,
+    active,
+  }: {
+    label: string;
+    href: string;
+    active?: boolean;
+  }) => (
     <Link
       href={hrefWithLocale(locale, href)}
-      className={`chips whitespace-nowrap shrink-0 snap-start ${active ? 'ring-1 ring-emerald-400 font-semibold' : ''}`}
+      className={
+        'chips inline-flex items-center rounded-full border px-3 py-1 text-sm text-[#39ff14] ' +
+        'border-[#39ff14] bg-black/40 hover:bg-[#39ff14]/10 transition-colors whitespace-nowrap shrink-0 snap-start ' +
+        (active ? 'ring-1 ring-[#39ff14] bg-[#39ff14]/15 font-semibold' : '')
+      }
       aria-current={active ? 'page' : undefined}
       onClick={() => setOpen(false)}
     >
@@ -235,15 +282,19 @@ export default function Header() {
     </Link>
   );
 
-  const activeCatHref = categories.find(c =>
-    normalize(pathname).startsWith(normalize(hrefWithLocale(locale, `/c/${c.slug}`)))
+  const activeCatHref = categories.find((c) =>
+    normalize(pathname).startsWith(normalize(hrefWithLocale(locale, `/c/${c.slug}`))),
   )?.href;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-emerald-500/20 bg-black text-emerald-300">
       {/* Gornja traka */}
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between">
-        <Link href={hrefWithLocale(locale, '/')} className="font-semibold tracking-tight text-[#39ff14]" aria-label="InfoHelm home">
+        <Link
+          href={hrefWithLocale(locale, '/')}
+          className="font-semibold tracking-tight text-[#39ff14]"
+          aria-label="InfoHelm home"
+        >
           InfoHelm
         </Link>
 
@@ -262,7 +313,7 @@ export default function Header() {
           <ThemeToggle label={t.theme} darkLabel={t.dark} lightLabel={t.light} />
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md border border-emerald-500/30 hover:bg-black/60 text-emerald-300"
+            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md border border-[#39ff14]/40 hover:bg-black/60 text-[#39ff14]"
             aria-label={t.menu}
             onClick={() => setOpen(true)}
           >
@@ -273,19 +324,35 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Donja traka (desktop): kategorije kao čipovi */}
-      <div className="hidden md:block border-t border-emerald-500/20">
+      {/* Donja traka (desktop): kategorije kao čipovi + zlatne tačkice */}
+      <div className="hidden md:block border-t border-b border-t-emerald-500/20 border-b-[#facc15]">
         <div className="mx-auto max-w-6xl px-4">
-          <div className="flex flex-wrap items-center gap-2 py-2">
+          <div className="flex flex-nowrap items-center gap-2 py-2">
+            {/* Početna tačkica */}
+            <span aria-hidden className="text-xs leading-none text-amber-400 px-0.5">
+              •
+            </span>
+
             {categories.map((c) => (
-              <ChipLink key={c.href} label={c.label} href={c.href} active={activeCatHref === c.href} />
+              <React.Fragment key={c.href}>
+                <ChipLink
+                  label={c.label}
+                  href={c.href}
+                  active={activeCatHref === c.href}
+                />
+
+                {/* Tačkica posle svakog čipa (i na kraju reda) */}
+                <span aria-hidden className="text-xs leading-none text-amber-400 px-0.5">
+                  •
+                </span>
+              </React.Fragment>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Donja traka (mob): čipovi – horizontalni skrol */}
-      <div className="md:hidden border-t border-emerald-500/20 relative">
+      {/* Donja traka (mob): čipovi – horizontalni skrol, bez duplih tačkica */}
+      <div className="md:hidden border-t border-b border-t-emerald-500/20 border-b-[#facc15] relative">
         {/* edge fade iz crne */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-black to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-linear-to-l from-black to-transparent" />
@@ -295,7 +362,12 @@ export default function Header() {
         >
           <div className="flex gap-2 py-2 min-w-max">
             {categories.map((c) => (
-              <ChipLink key={c.href} label={c.label} href={c.href} active={activeCatHref === c.href} />
+              <ChipLink
+                key={c.href}
+                label={c.label}
+                href={c.href}
+                active={activeCatHref === c.href}
+              />
             ))}
           </div>
         </div>

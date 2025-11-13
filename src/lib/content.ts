@@ -10,7 +10,9 @@ export type ArticleFrontmatter = {
   date?: string;
   author?: string;
   tags?: string[];
+  // hero slika – podržavamo i "cover" i "image" iz front-mattera
   cover?: string;
+  image?: string;
   type?: 'article' | 'news' | 'review';
   rating?: {
     ratingValue: number;
@@ -87,7 +89,12 @@ export async function getArticleSource(
   } catch {
     // fallback: category lowercase (ako je u URL-u drugačije)
     try {
-      const fp2 = joinSafe(CONTENT_DIR, String(locale), String(category).toLowerCase(), `${String(slug)}.mdx`);
+      const fp2 = joinSafe(
+        CONTENT_DIR,
+        String(locale),
+        String(category).toLowerCase(),
+        `${String(slug)}.mdx`
+      );
       if (fp2 !== fullPath) {
         const src2 = await fs.readFile(fp2, 'utf8');
         return src2;
@@ -116,13 +123,15 @@ export async function loadArticle(
     }
   });
 
+  // normalizacija – ako u MDX-u piše "image", puni se i cover
   const fm: ArticleFrontmatter = {
     title: frontmatter.title,
     description: frontmatter.description ?? '',
     date: frontmatter.date,
     author: frontmatter.author ?? 'InfoHelm Team',
     tags: frontmatter.tags ?? [],
-    cover: frontmatter.cover,
+    cover: frontmatter.cover ?? frontmatter.image,
+    image: frontmatter.image ?? frontmatter.cover,
     type: frontmatter.type ?? 'article',
     rating: frontmatter.rating
   };

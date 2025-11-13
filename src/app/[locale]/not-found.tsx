@@ -1,46 +1,52 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 
-const TEXT: Record<string, { title: string; desc: string; home: string }> = {
+type Locale = 'en' | 'es' | 'sr';
+
+const TEXT: Record<Locale, { title: string; desc: string; back: string }> = {
   en: {
-    title: "Page not found",
-    desc: "The page you’re looking for doesn’t exist or has moved.",
-    home: "Back to home",
+    title: 'Page not found',
+    desc: 'The page you are looking for does not exist or has moved.',
+    back: 'Back to home',
   },
   es: {
-    title: "Página no encontrada",
-    desc: "La página que buscas no existe o se ha movido.",
-    home: "Volver al inicio",
+    title: 'Página no encontrada',
+    desc: 'La página que buscas no existe o se ha movido.',
+    back: 'Volver al inicio',
   },
   sr: {
-    title: "Stranica nije pronađena",
-    desc: "Stranica koju tražiš ne postoji ili je premještena.",
-    home: "Povratak na početnu",
+    title: 'Stranica nije pronađena',
+    desc: 'Stranica koju tražiš ne postoji ili je premeštena.',
+    back: 'Nazad na početnu',
   },
 };
 
-export default function NotFound() {
-  const locale = useLocale();
+export default function NotFoundPage() {
+  const locale = (useLocale() as Locale) ?? 'en';
   const t = TEXT[locale] ?? TEXT.en;
 
-  return (
-    <main className="mx-auto max-w-4xl px-4 py-16 text-center">
-      <div className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-zinc-300 dark:border-emerald-500/30">
-        <span className="text-2xl">🔍</span>
-      </div>
-      <h1 className="mt-6 text-2xl sm:text-3xl font-bold tracking-tight">{t.title}</h1>
-      <p className="mt-2 text-zinc-600 dark:text-zinc-300">{t.desc}</p>
+  const hrefHome = `/${locale}`;
 
-      <div className="mt-6">
+  return (
+    <main className="mx-auto max-w-3xl px-4 py-16">
+      <p className="text-sm text-emerald-400 mb-2">404</p>
+      <h1 className="text-3xl font-bold text-emerald-300 tracking-tight">
+        {t.title}
+      </h1>
+      <p className="mt-3 text-zinc-300 max-w-xl">
+        {t.desc}
+      </p>
+
+      <div className="mt-8">
         <Link
-          href={`/${locale}`}
-          className="inline-block rounded-lg px-4 py-2 border border-zinc-300 dark:border-emerald-500/30
-                     text-zinc-800 dark:text-emerald-200 hover:bg-zinc-100 dark:hover:bg-emerald-500/10"
+          href={hrefHome}
+          className="inline-flex items-center rounded-full border border-emerald-500/40
+                     px-4 py-2 text-sm font-medium text-emerald-200
+                     hover:bg-emerald-500/10 hover:border-emerald-400 transition"
         >
-          {t.home}
+          ← {t.back}
         </Link>
       </div>
     </main>
