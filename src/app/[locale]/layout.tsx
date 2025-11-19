@@ -16,9 +16,12 @@ import SideRails from '../../components/SideRails';
 
 const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3055').replace(/\/$/, '');
 
-// GA + Search Console konfiguracija iz env-a
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+// GA + Search Console konfiguracija
+// Privremeno hard-code da budemo sigurni da GA radi u produkciji
+const GA_ID = 'G-0KVNXW0YPH' as const;
+
 const GOOGLE_SITE_VERIFICATION = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
