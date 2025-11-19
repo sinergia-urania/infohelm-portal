@@ -18,7 +18,6 @@ const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3055').repla
 
 // GA + Search Console konfiguracija iz env-a
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-// npr. stavi u .env.local: NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=xxx
 const GOOGLE_SITE_VERIFICATION = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
@@ -90,79 +89,33 @@ export default async function RootLayout({
       </head>
 
       <body className="dark:bg-zinc-950 dark:text-zinc-50">
+        {/* Init teme pre React-a */}
         <Script
           id="theme-init"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: themeInit }}
         />
 
-        {/* === GA4 + Consent Mode v2 (samo ako postoji NEXT_PUBLIC_GA_ID) === */}
+        {/* === GA4 – osnovna varijanta (bez Consent Mode-a i router haka) === */}
         {GA_ID && (
           <>
-            {/* GA4 loader */}
+            {/* Loader */}
             <Script
               id="ga4"
               strategy="afterInteractive"
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
             />
-            {/* GA4 init + Consent Mode v2 (default denied) */}
+            {/* Init */}
             <Script id="ga4-init" strategy="afterInteractive">
               {`
                 window.dataLayer = window.dataLayer || [];
-                function gtag(){ dataLayer.push(arguments); }
+                function gtag(){dataLayer.push(arguments);}
                 window.gtag = window.gtag || gtag;
 
-                // Consent Mode v2 (default deny za sve regione — kasnije CMP može da zove __grantConsent)
-                gtag('consent', 'default', {
-                  ad_storage: 'denied',
-                  ad_user_data: 'denied',
-                  ad_personalization: 'denied',
-                  analytics_storage: 'denied',
-                  wait_for_update: 500
-                });
-
                 gtag('js', new Date());
-                gtag('config', '${GA_ID}', { page_path: location.pathname });
-
-                // Helper za CMP/banner — pozovi window.__grantConsent()
-                window.__grantConsent = function () {
-                  gtag('consent', 'update', {
-                    ad_storage: 'granted',
-                    ad_user_data: 'granted',
-                    ad_personalization: 'granted',
-                    analytics_storage: 'granted'
-                  });
-                  gtag('event', 'page_view', { page_path: location.pathname });
-                };
-              `}
-            </Script>
-            {/* SPA pageview-i (Next.js routing) */}
-            <Script id="ga4-router" strategy="afterInteractive">
-              {`
-                (function () {
-                  const send = () => {
-                    if (!window.gtag) return;
-                    const path = location.pathname + location.search + location.hash;
-                    window.gtag('config', '${GA_ID}', { page_path: path });
-                  };
-
-                  ['pushState','replaceState'].forEach((type) => {
-                    const orig = history[type];
-                    history[type] = function () {
-                      const ret = orig.apply(this, arguments);
-                      window.dispatchEvent(new Event('locationchange'));
-                      return ret;
-                    };
-                  });
-
-                  window.addEventListener('popstate', () =>
-                    window.dispatchEvent(new Event('locationchange'))
-                  );
-                  window.addEventListener('locationchange', send);
-
-                  // inicijalni hit
-                  send();
-                })();
+                gtag('config', '${GA_ID}', {
+                  page_path: window.location.pathname + window.location.search,
+                });
               `}
             </Script>
           </>
