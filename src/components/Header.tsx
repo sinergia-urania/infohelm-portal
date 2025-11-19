@@ -149,7 +149,23 @@ function OffCanvas(props: {
                     ${show ? 'translate-x-0' : 'translate-x-full'}`}
       >
         <div className="flex items-center justify-between">
-          <span className="font-semibold text-[#39ff14]">InfoHelm</span>
+          {/* MINI LOGO U OFF-CANVASU */}
+          <div className="flex items-center gap-2">
+            <span className="inline-flex h-8 w-8 overflow-hidden rounded-full ring-1 ring-[#39ff14]/60">
+              <img
+                src="/images/infohelm-helm.jpg"
+                alt="InfoHelm logo"
+                className="h-full w-full object-cover"
+              />
+            </span>
+            <span className="text-sm font-semibold leading-tight">
+              <span className="block text-amber-300">InfoHelm</span>
+              <span className="block text-[10px] uppercase tracking-[0.22em] text-[#39ff14]">
+                Tech
+              </span>
+            </span>
+          </div>
+
           <button
             type="button"
             className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-[#39ff14]/40 hover:bg-black/60 text-[#39ff14]"
@@ -247,8 +263,8 @@ export default function Header() {
     <Link
       href={hrefWithLocale(locale, href)}
       className={
-        'px-3 py-2 rounded-md text-sm transition-colors text-[#39ff14] hover:text-[#b4ff5c] ' +
-        (isActive(href) ? 'underline underline-offset-4 decoration-[#39ff14]/80 ' : '') +
+        'px-3 py-2 rounded-md text-sm transition-colors text-amber-300 hover:text-amber-200 ' +
+        (isActive(href) ? 'underline underline-offset-4 decoration-amber-300 ' : '') +
         className
       }
       aria-current={isActive(href) ? 'page' : undefined}
@@ -289,13 +305,28 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-emerald-500/20 bg-black text-emerald-300">
       {/* Gornja traka */}
-      <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between">
+      <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
+        {/* NOVI LOGO BLOK */}
         <Link
           href={hrefWithLocale(locale, '/')}
-          className="font-semibold tracking-tight text-[#39ff14]"
+          className="flex items-center gap-3 group"
           aria-label="InfoHelm home"
         >
-          InfoHelm
+          <span className="inline-flex h-10 w-10 overflow-hidden rounded-full ring-2 ring-[#39ff14]/70 shadow-[0_0_18px_rgba(57,255,20,0.7)] group-hover:scale-105 transition-transform">
+            <img
+              src="/images/infohelm-helm.jpg"
+              alt="InfoHelm logo"
+              className="h-full w-full object-cover"
+            />
+          </span>
+          <span className="leading-tight">
+            <span className="block font-semibold tracking-tight text-amber-300 text-xl sm:text-2xl">
+              InfoHelm
+            </span>
+            <span className="block text-[11px] sm:text-xs uppercase tracking-[0.25em] text-[#39ff14]">
+              Tech
+            </span>
+          </span>
         </Link>
 
         {/* Desktop nav */}
@@ -327,7 +358,7 @@ export default function Header() {
       {/* Donja traka (desktop): kategorije kao čipovi + zlatne tačkice */}
       <div className="hidden md:block border-t border-b border-t-emerald-500/20 border-b-[#facc15]">
         <div className="mx-auto max-w-6xl px-4">
-          <div className="flex flex-nowrap items-center gap-2 py-2">
+          <div className="flex flex-nowrap items-center gap-2 py-2 justify-center">
             {/* Početna tačkica */}
             <span aria-hidden className="text-xs leading-none text-amber-400 px-0.5">
               •

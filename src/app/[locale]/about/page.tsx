@@ -1,4 +1,4 @@
-// app/[locale]/about/page.tsx
+// src/app/[locale]/about/page.tsx
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import SeoJsonLd from '@/components/SeoJsonLd';
@@ -37,11 +37,11 @@ const TEXT = {
     d1: 'Pojedini tekstovi sadrže affiliate linkove. Ako klikneš i obaviš kupovinu, možemo dobiti malu proviziju bez dodatnog troška za tebe.',
     d2: 'Preporuke su nezavisne i zasnovane na korisnosti za čitaoce. Naknade ne utiču na urednički sud.',
     d3: 'Analitika se koristi da razumemo saobraćaj i unapredimo sajt. Ne prodajemo lične podatke. Svoj pristanak za analitiku/oglase možeš izmeniti u bilo kom trenutku.',
-  }
+  },
 } as const;
 
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
@@ -50,7 +50,7 @@ export async function generateMetadata({
 
   const path = `/${locale}/about`;
   const languages = Object.fromEntries(
-    LOCALES.map((l) => [l, `${SITE}/${l}/about`])
+    LOCALES.map((l) => [l, `${SITE}/${l}/about`]),
   );
 
   return {
@@ -58,7 +58,7 @@ export async function generateMetadata({
     description: t.desc,
     alternates: {
       canonical: `${SITE}${path}`,
-      languages
+      languages,
     },
     openGraph: {
       title: t.title,
@@ -66,19 +66,19 @@ export async function generateMetadata({
       url: `${SITE}${path}`,
       siteName: 'InfoHelm',
       type: 'website',
-      images: [`${SITE}/og.jpg`]
+      images: [`${SITE}/og.jpg`],
     },
     twitter: {
       card: 'summary_large_image',
       title: t.title,
       description: t.desc,
-      images: [`${SITE}/og.jpg`]
-    }
+      images: [`${SITE}/og.jpg`],
+    },
   };
 }
 
 export default async function AboutPage({
-  params
+  params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
@@ -86,9 +86,7 @@ export default async function AboutPage({
   const t = (TEXT as any)[locale] ?? TEXT.en;
 
   const hrefHome = `/${locale}`;
-  const safeLocale: Locale = (['en', 'es', 'sr'] as const).includes(
-    locale as Locale
-  )
+  const safeLocale: Locale = (['en', 'es', 'sr'] as const).includes(locale as Locale)
     ? (locale as Locale)
     : 'en';
 
@@ -96,13 +94,22 @@ export default async function AboutPage({
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-2xl font-bold">{t.title}</h1>
-      <p className="mt-2 text-zinc-700 dark:text-zinc-300">{t.desc}</p>
+      {/* GLAVNI NASLOV – zlato + carbon traka u light modu */}
+      <h1 className="gold-heading text-3xl font-semibold tracking-tight">
+        {t.title}
+      </h1>
 
-      {/* Disclosure sekcija (anchor za footer link) */}
-      <section id="disclosure" className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">{t.disclosureTitle}</h2>
-        <div className="mt-2 space-y-3 text-zinc-700 dark:text-zinc-300">
+      {/* Uvodni tekst – about-body + lagano povećan line-height */}
+      <p className="about-body mt-2 leading-relaxed">
+        {t.desc}
+      </p>
+
+      {/* Disclosure sekcija (anchor za footer link) u carbon kartici */}
+      <section id="disclosure" className="mt-10 card-carbon p-5 sm:p-6">
+        <h2 className="gold-heading text-xl font-semibold tracking-tight">
+          {t.disclosureTitle}
+        </h2>
+        <div className="about-body mt-3 space-y-3 leading-relaxed text-sm sm:text-base">
           <p>{t.d1}</p>
           <p>{t.d2}</p>
           <p>{t.d3}</p>
@@ -110,7 +117,7 @@ export default async function AboutPage({
       </section>
 
       <div className="mt-8">
-        <Link href={hrefHome} className="underline">
+        <Link href={hrefHome} className="text-brand-gold hover:text-yellow-300 hover:underline transition-colors">
           {t.back}
         </Link>
       </div>

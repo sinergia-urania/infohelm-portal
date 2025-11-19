@@ -1,12 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  /* LIGHT mod – blago sivkasta “papir” pozadina umesto bolničke bele */
+  color-scheme: light;
+  --background: #f5f5f5;
   --foreground: #171717;
 
   /* === BRAND ZELENA (laserska) === */
   --brand-green: #34d399;           /* emerald-400 */
   --brand-green-rgb: 52, 211, 153;  /* za rgba(...) */
+
+  /* === BRAND ZLATNA (naslovi / okviri) === */
+  --brand-gold: #facc15;
 }
 
 @theme inline {
@@ -53,51 +58,50 @@ html.dark select option {
   color: #f4f4f5;
 }
 
+/* === MUTED TEXT u dark modu – malo svetliji da bude čitljiviji === */
+/* Ovo zahvata sve klase tipa className="dark:text-zinc-300" / 400 */
+.dark .dark\:text-zinc-300,
+.dark .dark\:text-zinc-400 {
+  /* približno zinc-200 */
+  color: #e5e7eb;
+}
+
 /* ============================================================
-   HEADER & CHIPOVI: full-black + NEON zelena + zlatni akcenti
+   HEADER & CHIPOVI: full-black + GOLD top row + NEON zelena chipovi
    ============================================================ */
 header.sticky.top-0 {
   background-color: #000000 !important;
-  color: #39ff14 !important;                  /* brand neon */
-  border-bottom: 1px solid #facc15 !important;/* tanka zlatna linija */
+  border-bottom: 1px solid #facc15 !important; /* tanka zlatna linija */
   backdrop-filter: none !important;
 }
 
-/* Linkovi, dugmad, label-e u headeru */
-header.sticky.top-0 a,
-header.sticky.top-0 button,
-header.sticky.top-0 label {
-  color: #39ff14 !important;
-}
-
-/* <select> u LanguageSwitcher-u */
+/* <select> u LanguageSwitcher-u – crna pozadina, zlatan tekst */
 header.sticky.top-0 select,
 header.sticky.top-0 select option {
   background-color: #000000 !important;
-  color: #39ff14 !important;
-  border-color: rgba(57, 255, 20, 0.45) !important;
+  color: #facc15 !important;
+  border-color: rgba(250, 204, 21, 0.5) !important;
 }
 
-/* Dugmad (globus, tema, hamburger) – neon bordura */
+/* Dugmad (globus, tema, hamburger) – zlatna bordura + blagi hover */
 header.sticky.top-0 button {
-  border: 1px solid rgba(57, 255, 20, 0.45) !important;
+  border: 1px solid rgba(250, 204, 21, 0.55) !important;
   background: transparent !important;
 }
 header.sticky.top-0 button:hover {
-  background-color: rgba(57, 255, 20, 0.12) !important;
+  background-color: rgba(250, 204, 21, 0.12) !important;
 }
 
-/* CHIPOVI (kategorije) – ista neon zelena svuda */
+/* CHIPOVI (kategorije) – ostaju neon zelena */
 header.sticky.top-0 .chips {
   display: inline-flex;
   align-items: center;
   border-radius: 9999px;
   padding: 0.25rem 0.9rem;
-  border: 1px solid rgba(57, 255, 20, 0.5);
+  border: 1px solid rgba(57, 255, 20, 0.65);
   color: #39ff14;
   background: transparent;
 }
-
 
 /* Aktivni čip – malo jači “glow” */
 header.sticky.top-0 .chips[aria-current="page"] {
@@ -108,9 +112,190 @@ header.sticky.top-0 .chips[aria-current="page"] {
 
 /* Edge fade za mobilni scroll ostaje crn */
 header.sticky.top-0 .pointer-events-none.absolute.inset-y-0.left-0 {
-  background: linear-gradient(to right, #000 0%, rgba(0,0,0,0) 100%) !important;
+  background: linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0) 100%) !important;
 }
 header.sticky.top-0 .pointer-events-none.absolute.inset-y-0.right-0 {
-  background: linear-gradient(to left, #000 0%, rgba(0,0,0,0) 100%) !important;
+  background: linear-gradient(to left, #000 0%, rgba(0, 0, 0, 0) 100%) !important;
 }
 
+/* ============================================================
+   BRAND GOLD helperi + naslovi u člancima
+   ============================================================ */
+
+/* Helper klase – možeš da ih koristiš u JSX: className="text-brand-gold" */
+.text-brand-gold {
+  color: var(--brand-gold) !important;
+}
+.border-brand-gold {
+  border-color: var(--brand-gold) !important;
+}
+
+/* Globalni helper za zlatne naslove van .prose (About, liste, itd.) */
+.gold-heading {
+  color: var(--brand-gold);
+}
+
+html:not(.dark) .gold-heading {
+  display: inline-block;
+  padding: 0.25rem 0.9rem;
+  margin-left: -0.25rem;
+  margin-right: -0.25rem;
+  background-color: #020617;  /* carbon traka */
+  border-radius: 0.5rem;
+}
+
+/* === META / BREADCRUMB CHIPOVI ============================= */
+
+/* Breadcrumb linija: "Home · apps" */
+.breadcrumb-chip {
+  font-size: 0.875rem; /* ~text-sm */
+}
+
+/* Meta linija: "InfoHelm Team · Nov 13, 2025" */
+.meta-chip {
+  font-size: 0.875rem;
+}
+
+/* LIGHT – carbon traka sa zlatnim slovima */
+/* Breadcrumb chip dobija i donji razmak da se odvoji od naslova */
+html:not(.dark) .breadcrumb-chip {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  margin-left: -0.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem; /* <<< NOVO: razmak ispod breadcrumba */
+  background-color: #020617; /* carbon */
+  border-radius: 9999px;
+  color: var(--brand-gold);
+}
+
+/* Meta chip ostaje bez dodatnog donjeg margina */
+html:not(.dark) .meta-chip {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  margin-left: -0.25rem;
+  margin-top: 0.25rem;
+  background-color: #020617; /* carbon */
+  border-radius: 9999px;
+  color: var(--brand-gold);
+}
+
+
+/* DARK – samo zlato, bez trake (već je pozadina crna) */
+html.dark .breadcrumb-chip,
+html.dark .meta-chip {
+  color: var(--brand-gold);
+}
+
+/* Svi prose naslovi u zlatu */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--brand-gold);
+}
+
+/* H2 = glavni blok sekcije */
+.prose h2 {
+  font-size: 1.35rem;       /* ~text-xl */
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+/* LIGHT: carbon traka samo za H2, ali sa tankim crnim okvirom oko slova */
+html:not(.dark) .prose h2 {
+  display: inline-block;
+  padding: 0.18rem 0.6rem;
+  margin-left: -0.25rem;
+  margin-right: -0.25rem;
+  background-color: #020617; /* carbon traka */
+  border-radius: 0.5rem;
+
+  /* tanki stroke oko zlatnog teksta */
+  -webkit-text-stroke: 0.4px #000000;
+
+  /* fallback outline za browsere bez text-stroke */
+  text-shadow:
+    0.03em 0 0 #000,
+   -0.03em 0 0 #000,
+    0 0.03em 0 #000,
+    0 -0.03em 0 #000;
+}
+
+/* LIGHT: H3 – zlatan tekst sa tankim crnim "okvirom" oko slova */
+html:not(.dark) .prose h3 {
+  background-color: transparent;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+
+  /* tanki stroke (Chrome / Edge / Safari) */
+  -webkit-text-stroke: 0.5px #000000;
+
+  /* fallback za ostale – blagi outline preko shadow-a */
+  text-shadow:
+    0.03em 0 0 #000,
+   -0.03em 0 0 #000,
+    0 0.03em 0 #000,
+    0 -0.03em 0 #000;
+}
+
+/* LIGHT: H4 ostaje čist zlatan tekst bez okvira */
+html:not(.dark) .prose h4 {
+  background-color: transparent;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
+/* H3/H4 u light modu ostaju „čist“ tekst bez pozadine */
+html:not(.dark) .prose h3,
+html:not(.dark) .prose h4 {
+  background-color: transparent;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* === GLOBAL ARTICLE & CARBON HELPERI ======================= */
+@layer components {
+  /* Glavni tekst u članku */
+  .article-body {
+    @apply text-base leading-relaxed text-zinc-900;
+  }
+
+  .dark .article-body {
+    @apply text-zinc-100;
+  }
+
+  /* Sekundarni tekst – breadcrumb / meta ispod naslova */
+  .article-meta {
+    @apply text-xs md:text-sm text-zinc-600;
+  }
+
+  .dark .article-meta {
+    @apply text-zinc-300;
+  }
+
+  /* Carbon kartice za zlatne naslove (ToC, TL;DR, Related, apps...) */
+    .card-carbon {
+    @apply rounded-2xl border border-yellow-500/30 bg-neutral-950/80 text-zinc-100 shadow-lg shadow-black/40;
+  }
+
+}
+
+/* === About stranica – helper za tekst === */
+.about-body {
+  /* light mod – tamno siva, kao text-zinc-700 */
+  color: #374151;
+}
+
+html.dark .about-body {
+  /* dark mod – skoro bela, jak kontrast na crnoj */
+  color: #f9fafb !important;
+}
+/* Light mod: kad je about-body unutar card-carbon (tamna kartica),
+   koristi svetliji tekst da ne nestane na pozadini. */
+html:not(.dark) .card-carbon .about-body {
+  color: #e5e7eb;
+}

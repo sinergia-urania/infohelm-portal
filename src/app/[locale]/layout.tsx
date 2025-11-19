@@ -170,7 +170,12 @@ export default async function RootLayout({
 
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
-          <SideRails rail="clamp(300px, 15vw, 360px)" contentMax={1100} top={96}>
+          <SideRails
+            locale={locale}
+            rail="clamp(300px, 15vw, 360px)"
+            contentMax={1100}
+            top={96}
+          >
             {children}
           </SideRails>
           <Footer />

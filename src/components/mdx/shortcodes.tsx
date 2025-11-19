@@ -4,11 +4,12 @@ import * as React from 'react';
 /** TL;DR kutija — koristi markdown kao children. */
 export function TLDR({ children }: { children?: React.ReactNode }) {
   return (
-    <div className="my-6 rounded-2xl border bg-white/70 p-4 dark:border-emerald-500/25 dark:bg-black/70">
-      <div className="mb-2 text-xs font-semibold tracking-wider text-zinc-500 dark:text-emerald-300">
+    <div className="my-6 rounded-2xl border border-brand-gold bg-zinc-900 p-4 text-zinc-50">
+      <div className="mb-2 text-xs font-semibold tracking-wider text-brand-gold">
         TL;DR
       </div>
-      <div className="prose prose-zinc dark:prose-invert max-w-none">{children}</div>
+      {/* Pozadina je tamna i u light i u dark modu, pa uvek koristimo prose-invert */}
+      <div className="prose prose-invert max-w-none">{children}</div>
     </div>
   );
 }
@@ -32,7 +33,13 @@ export function ProsCons({
         <ul className="space-y-1">
           {pros.map((p, i) => (
             <li key={`pro-${i}`} className="flex items-start gap-2">
-              <svg className="mt-1 h-4 w-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                className="mt-1 h-4 w-4 text-emerald-400"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M20 6L9 17l-5-5" />
               </svg>
               <span className="text-zinc-800 dark:text-zinc-200">{p}</span>
@@ -43,7 +50,13 @@ export function ProsCons({
         <ul className="space-y-1">
           {cons.map((c, i) => (
             <li key={`con-${i}`} className="flex items-start gap-2">
-              <svg className="mt-1 h-4 w-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                className="mt-1 h-4 w-4 text-amber-400"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
               <span className="text-zinc-800 dark:text-zinc-200">{c}</span>
@@ -93,19 +106,7 @@ export function Sources({
   );
 }
 
-/** SpecTable — kompaktan prikaz specifikacija.
- *
- * Možeš proslediti:
- *  - data: Record<label, value>
- *  - ili items: Array<{label, value}>
- *  - ili children (markdown) kao fallback
- *
- * Primer u .mdx:
- * <SpecTable
- *   title="Key specs"
- *   data={{ Display: "6.2\" AMOLED 120Hz", SoC: "Snapdragon 8 Gen 4", Battery: "4500 mAh" }}
- * />
- */
+/** SpecTable — kompaktan prikaz specifikacija. */
 export function SpecTable({
   title = 'Specifications',
   data,
@@ -127,7 +128,9 @@ export function SpecTable({
   if (rows.length === 0 && children) {
     return (
       <div className="my-6 rounded-2xl border p-4 bg-white/70 dark:border-emerald-500/25 dark:bg-black/70">
-        <div className="mb-3 text-sm font-semibold text-zinc-700 dark:text-emerald-200">{title}</div>
+        <div className="mb-3 text-sm font-semibold text-zinc-700 dark:text-emerald-200">
+          {title}
+        </div>
         <div className="prose prose-zinc dark:prose-invert max-w-none">{children}</div>
       </div>
     );
@@ -135,7 +138,9 @@ export function SpecTable({
 
   return (
     <section className="my-6 rounded-2xl border bg-white/70 p-4 dark:border-emerald-500/25 dark:bg-black/70">
-      <h3 className="mb-3 text-sm font-semibold text-zinc-700 dark:text-emerald-200">{title}</h3>
+      <h3 className="mb-3 text-sm font-semibold text-zinc-700 dark:text-emerald-200">
+        {title}
+      </h3>
 
       <dl className="divide-y divide-zinc-200 dark:divide-emerald-500/20">
         {rows.map(({ label, value }, i) => (
@@ -143,7 +148,9 @@ export function SpecTable({
             key={i}
             className="grid grid-cols-1 gap-2 py-2 sm:grid-cols-[12rem,1fr] sm:gap-6 sm:py-3"
           >
-            <dt className="text-sm font-medium text-zinc-600 dark:text-emerald-300">{label}</dt>
+            <dt className="text-sm font-medium text-zinc-600 dark:text-emerald-300">
+              {label}
+            </dt>
             <dd className="text-sm text-zinc-800 dark:text-zinc-100">{value}</dd>
           </div>
         ))}

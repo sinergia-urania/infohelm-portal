@@ -14,17 +14,17 @@ export default function ToC({
   if (!headings || headings.length < 2) return null;
 
   return (
-    <aside className="my-6 rounded-2xl border p-4 bg-white/70 dark:border-emerald-500/25 dark:bg-black/70">
-      <div className="mb-2 text-xs font-semibold tracking-wider text-zinc-500 dark:text-emerald-300">
+    <aside className="my-6 card-carbon p-4 text-neutral-100">
+      <div className="mb-2 text-xs font-semibold tracking-wider uppercase text-yellow-400">
         {title}
       </div>
-      <nav>
+      <nav aria-label={title}>
         <ul className="space-y-1 text-sm">
           {headings.map((h) => (
             <li key={h.id} className={h.depth === 3 ? 'pl-4' : ''}>
               <a
                 href={`#${h.id}`}
-                className="hover:underline text-emerald-700 dark:text-emerald-300"
+                className="text-yellow-400 hover:text-yellow-300 hover:underline"
               >
                 {h.title}
               </a>

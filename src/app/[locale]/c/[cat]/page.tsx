@@ -18,8 +18,8 @@ const CATS: CatDef[] = [
     description: {
       en: 'Daily highlights across tech, AI, crypto, markets.',
       es: 'Lo más destacado diario de tecnología, IA, cripto y mercados.',
-      sr: 'Dnevni presjek: tehnologija, AI, kripto i berze.'
-    }
+      sr: 'Dnevni presjek: tehnologija, AI, kripto i berze.',
+    },
   },
   {
     slug: 'new-tech',
@@ -27,8 +27,8 @@ const CATS: CatDef[] = [
     description: {
       en: 'Breakthroughs in AI, quantum, chips, robotics and more.',
       es: 'Avances en IA, cuántica, chips, robótica y más.',
-      sr: 'Proboji u AI, kvantnim računarima, čipovima, robotici i dr.'
-    }
+      sr: 'Proboji u AI, kvantnim računarima, čipovima, robotici i dr.',
+    },
   },
   {
     slug: 'crypto-economy',
@@ -36,8 +36,8 @@ const CATS: CatDef[] = [
     description: {
       en: 'Crypto markets, stocks, macro trends and on-chain metrics.',
       es: 'Mercados cripto, acciones, macro y métricas on-chain.',
-      sr: 'Kripto tržišta, akcije, makro trendovi i on-chain metrike.'
-    }
+      sr: 'Kripto tržišta, akcije, makro trendovi i on-chain metrike.',
+    },
   },
   {
     slug: 'science-space',
@@ -45,8 +45,8 @@ const CATS: CatDef[] = [
     description: {
       en: 'New discoveries, space missions and deep science stories.',
       es: 'Nuevos descubrimientos, misiones espaciales y ciencia.',
-      sr: 'Nova otkrića, svemirske misije i ozbiljna nauka.'
-    }
+      sr: 'Nova otkrića, svemirske misije i ozbiljna nauka.',
+    },
   },
   {
     slug: 'reviews',
@@ -54,8 +54,8 @@ const CATS: CatDef[] = [
     description: {
       en: 'Phones, laptops, wearables and practical buying advice.',
       es: 'Móviles, portátiles, wearables y consejos de compra.',
-      sr: 'Telefoni, laptopovi, satovi i praktični savjeti za kupovinu.'
-    }
+      sr: 'Telefoni, laptopovi, satovi i praktični savjeti za kupovinu.',
+    },
   },
   {
     slug: 'software-gaming',
@@ -63,17 +63,21 @@ const CATS: CatDef[] = [
     description: {
       en: 'Apps, tools, OS updates and the gaming scene.',
       es: 'Apps, herramientas, actualizaciones y gaming.',
-      sr: 'Aplikacije, alati, OS novosti i gejming scena.'
-    }
+      sr: 'Aplikacije, alati, OS novosti i gejming scena.',
+    },
   },
   {
     slug: 'lifestyle-entertainment',
-    title: { en: 'Lifestyle & Entertainment', es: 'Estilo de vida y entretenimiento', sr: 'Lifestyle i zabava' },
+    title: {
+      en: 'Lifestyle & Entertainment',
+      es: 'Estilo de vida y entretenimiento',
+      sr: 'Lifestyle i zabava',
+    },
     description: {
       en: 'Culture, trends, weekly horoscope and fun picks.',
       es: 'Cultura, tendencias, horóscopo semanal y ocio.',
-      sr: 'Kultura, trendovi, nedeljni horoskop i zabava.'
-    }
+      sr: 'Kultura, trendovi, nedeljni horoskop i zabava.',
+    },
   },
   {
     slug: 'apps',
@@ -81,12 +85,12 @@ const CATS: CatDef[] = [
     description: {
       en: 'Our mobile apps (AI Tarot, DreamCodex)—news, updates and guides.',
       es: 'Nuestras apps móviles (AI Tarot, DreamCodex): noticias y guías.',
-      sr: 'Naše mobilne aplikacije (AI Tarot, DreamCodex) — vesti, najave i vodiči.'
-    }
-  }
+      sr: 'Naše mobilne aplikacije (AI Tarot, DreamCodex) — vesti, najave i vodiči.',
+    },
+  },
 ];
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3055').replace(/\/$/, '');
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.infohelm.org').replace(/\/$/, '');
 
 function getCat(slug: string) {
   return CATS.find((c) => c.slug === slug);
@@ -98,7 +102,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: Promise<{ locale: string; cat: string }>;
 }): Promise<Metadata> {
@@ -119,18 +123,18 @@ export async function generateMetadata({
         en: `${SITE}/en/c/${def.slug}`,
         es: `${SITE}/es/c/${def.slug}`,
         sr: `${SITE}/sr/c/${def.slug}`,
-        'x-default': `${SITE}/en/c/${def.slug}`
+        'x-default': `${SITE}/en/c/${def.slug}`,
       },
       // ✅ RSS feed hint za OVU kategoriju i jezik
-      types: { 'application/rss+xml': `${SITE}/${locale}/c/${def.slug}/feed.xml` }
+      types: { 'application/rss+xml': `${SITE}/${locale}/c/${def.slug}/feed.xml` },
     },
     openGraph: { title, description, url, images: ['/og.png'] },
-    twitter: { card: 'summary_large_image', title, description, images: ['/og.png'] }
+    twitter: { card: 'summary_large_image', title, description, images: ['/og.png'] },
   };
 }
 
 export default async function CategoryPage({
-  params
+  params,
 }: {
   params: Promise<{ locale: string; cat: string }>;
 }) {
@@ -142,13 +146,15 @@ export default async function CategoryPage({
   const description = def.description[locale as 'en' | 'es' | 'sr'] ?? def.description.en;
 
   // === Učitaj članke za ovu kategoriju/locale ===
-  const entries = (await listAllArticles()).filter((e) => e.locale === locale && e.category === cat);
+  const entries = (await listAllArticles()).filter(
+    (e) => e.locale === locale && e.category === cat,
+  );
 
   const posts = await Promise.all(
     entries.map(async (e) => {
       const { frontmatter } = await loadArticle(e.locale, e.category, e.slug);
       return { ...e, frontmatter };
-    })
+    }),
   );
 
   // Sortiraj po datumu opadajuće (ako postoji)
@@ -159,20 +165,27 @@ export default async function CategoryPage({
   });
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
-      {/* Breadcrumbs */}
-      <nav className="mb-6 text-sm text-zinc-600 dark:text-zinc-300">
-        <Link href={`/${locale}`} className="underline">
+  <main className="mx-auto max-w-6xl px-4 pt-12 pb-10">
+    {/* Breadcrumbs kao chip */}
+    <nav className="mb-4">
+      <div className="breadcrumb-chip">
+        <Link href={`/${locale}`} className="hover:underline">
           {locale === 'sr' ? 'Početna' : locale === 'es' ? 'Inicio' : 'Home'}
         </Link>
         <span className="mx-2">·</span>
         <span>{title}</span>
-      </nav>
+      </div>
+    </nav>
 
-      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">{title}</h1>
-      <p className="mt-2 text-zinc-600 dark:text-zinc-300">{description}</p>
+    <h1 className="gold-heading text-2xl sm:text-3xl font-bold tracking-tight">
+      {title}
+    </h1>
+    <p className="about-body mt-2 leading-relaxed text-sm sm:text-base">
+      {description}
+    </p>
 
-      {/* RSS badge/link */}
+    {/* RSS badge/link */}
+
       <div className="mt-3">
         <Link
           href={`/${locale}/c/${cat}/feed.xml`}
@@ -197,15 +210,22 @@ export default async function CategoryPage({
           {posts.map(({ slug, frontmatter }) => {
             const url = `/${locale}/${cat}/${slug}`;
             const dt = frontmatter?.date
-              ? new Date(frontmatter.date).toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' })
+              ? new Date(frontmatter.date).toLocaleDateString(locale, {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                })
               : null;
             const img = (frontmatter as any)?.image ?? (frontmatter as any)?.cover;
-            const thumb = img
-              ? (String(img).startsWith('http') ? String(img) : `${SITE}${String(img)}`)
-              : null;
+            const thumb = img ? String(img) : null;
+
+              
 
             return (
-              <li key={slug} className="rounded-xl border p-4 bg-white/70 dark:bg-zinc-900/60">
+              <li
+                key={slug}
+                className="group card-carbon p-4 sm:p-5 transition duration-150 hover:-translate-y-0.5 hover:shadow-lg"
+              >
                 <div className="flex gap-4">
                   {/* Thumbnail */}
                   {thumb ? (
@@ -226,13 +246,22 @@ export default async function CategoryPage({
                   {/* Tekst */}
                   <div className="min-w-0">
                     <h2 className="text-lg sm:text-xl font-semibold">
-                      <Link href={url} className="hover:underline text-emerald-600 dark:text-emerald-300">
+                      <Link
+                        href={url}
+                        className="text-brand-gold transition-colors hover:text-yellow-300 hover:underline"
+                      >
                         {frontmatter?.title ?? slug}
                       </Link>
                     </h2>
-                    {dt ? <p className="mt-1 text-sm text-zinc-500">{dt}</p> : null}
+                    {dt ? (
+                      <p className="mt-1 text-sm text-zinc-400">
+                        {dt}
+                      </p>
+                    ) : null}
                     {frontmatter?.description ? (
-                      <p className="mt-2 text-zinc-700 dark:text-zinc-300 line-clamp-2">{frontmatter.description}</p>
+                      <p className="mt-2 text-zinc-200 line-clamp-2">
+                        {frontmatter.description}
+                      </p>
                     ) : null}
                   </div>
                 </div>
@@ -241,8 +270,8 @@ export default async function CategoryPage({
           })}
         </ul>
       ) : (
-        <div className="mt-8 rounded-2xl border p-6 bg-white/60 dark:bg-zinc-900/60">
-          <p className="text-sm text-zinc-500">
+        <div className="mt-8 card-carbon p-6">
+          <p className="text-sm text-zinc-200">
             {locale === 'sr'
               ? 'Ovde će uskoro biti najnoviji članci iz ove kategorije.'
               : locale === 'es'
