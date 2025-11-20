@@ -60,7 +60,7 @@ export default function SeoJsonLd(props: Props) {
     breadcrumbs
   } = props;
 
-  const site = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.infohelm.org").replace(/\/+$/, "");
+  const site = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://tech.infohelm.org").replace(/\/+$/, "");
 
   // Helperi
   const abs = (u: string) => (u.startsWith("http://") || u.startsWith("https://") ? u : `${site}${u.startsWith("/") ? "" : "/"}${u}`);

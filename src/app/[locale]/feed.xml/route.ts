@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server';
 import { listAllArticles, loadArticle } from '@/lib/content';
 import { buildRssXML } from '@/lib/rss';
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.infohelm.org').replace(/\/+$/, '');
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tech.infohelm.org').replace(/\/+$/, '');
 
 const TITLES: Record<string, { title: string; desc: string }> = {
   en: { title: 'InfoHelm Tech — Latest', desc: 'Latest posts: tech, AI, crypto, science & reviews.' },

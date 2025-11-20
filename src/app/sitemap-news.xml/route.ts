@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 import { listAllArticles, loadArticle } from '@/lib/content';
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.infohelm.org').replace(/\/+$/, '');
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tech.infohelm.org').replace(/\/+$/, '');
 const LOCALES = ['en', 'es', 'sr'] as const;
 
 type Locale = (typeof LOCALES)[number];

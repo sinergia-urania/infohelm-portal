@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { loadPost, getAllSlugs } from '@/lib/mdx';
 import SeoJsonLd from '@/components/SeoJsonLd';
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.infohelm.org').replace(
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tech.infohelm.org').replace(
   /\/+$/,
   '',
 );

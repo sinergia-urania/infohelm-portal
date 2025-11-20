@@ -90,7 +90,7 @@ const CATS: CatDef[] = [
   },
 ];
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.infohelm.org').replace(/\/$/, '');
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tech.infohelm.org').replace(/\/$/, '');
 
 function getCat(slug: string) {
   return CATS.find((c) => c.slug === slug);

@@ -40,7 +40,7 @@ const TEXT: Record<string, T> = {
   },
 };
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.infohelm.org').replace(
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tech.infohelm.org').replace(
   /\/$/,
   '',
 );

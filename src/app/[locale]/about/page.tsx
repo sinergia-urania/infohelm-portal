@@ -6,7 +6,7 @@ import SeoJsonLd from '@/components/SeoJsonLd';
 type Locale = 'en' | 'es' | 'sr';
 
 const SITE =
-  (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.infohelm.org').replace(/\/+$/, '');
+  (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tech.infohelm.org').replace(/\/+$/, '');
 
 const LOCALES: Locale[] = ['en', 'es', 'sr'];
 

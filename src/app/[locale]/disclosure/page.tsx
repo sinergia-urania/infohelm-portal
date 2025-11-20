@@ -28,7 +28,7 @@ const TEXT = {
   },
 } as const;
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.infohelm.org').replace(/\/$/, '');
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tech.infohelm.org').replace(/\/$/, '');
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: keyof typeof TEXT }> }): Promise<Metadata> {
   const { locale } = await params;

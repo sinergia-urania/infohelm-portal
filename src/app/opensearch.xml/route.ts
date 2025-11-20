@@ -1,8 +1,8 @@
 // src/app/opensearch.xml/route.ts
 import { NextResponse } from 'next/server';
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.infohelm.org').replace(/\/+$/, '');
-let HOST = 'www.infohelm.org';
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tech.infohelm.org').replace(/\/+$/, '');
+let HOST = 'tech.infohelm.org';
 try { HOST = new URL(SITE).hostname; } catch {}
 
 export function GET() {
