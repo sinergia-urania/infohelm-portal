@@ -1,0 +1,131 @@
+---
+title: "AI čip rat 2025: Nvidia, AMD i trka za dominaciju u data centrima"
+description: "Nvidia širi partnerstvo sa Arm-om kroz NVLink Fusion, AMD lansira FSR Redstone za AI upscaling, a cloud giganti prave sopstvene AI čipove. Gde u svemu tome ostaju gejmeri i mali developeri?"
+date: "2025-11-21"
+category: "new-tech"
+image: "/images/new-tech/ai-cip-rat-2025-hero.jpg"
+author: "InfoHelm Team"
+hero: "/images/new-tech/ai-cip-rat-2025-hero.jpg"
+heroAlt: "Ilustracija Nvidia i AMD grafičkih kartica u AI data centru"
+tags:
+  - "new-tech"
+  - "nvidia"
+  - "amd"
+---
+
+# AI čip rat 2025: Nvidia, AMD i trka za dominaciju u data centrima
+
+Ako je 2023. bila godina kada su svi otkrili ChatGPT, onda su 2024. i 2025. godine u kojima svet shvata da je pravi rat – rat za **čipove**. Nije više dovoljno „samo“ napraviti veliki model. Treba ga i istrenirati, održavati i poslužiti milionima korisnika, a to znači stotine hiljada GPU-ova, tone memorije i mreže koja sve to povezuje.
+
+U centru tog rata su:
+
+- **Nvidia**, koja i dalje drži krunu kada je reč o AI GPU-ovima,
+- **AMD**, koji pokušava da preskoči nekoliko stepenika odjednom,
+- **Arm**, koji se agresivno gura u AI data centre kroz novu saradnju sa Nvidiom,
+- i veliki cloud igrači (Google, Amazon, Meta, Microsoft, OpenAI) koji razvijaju sopstvene **custom AI čipove** da bi se manje oslanjali na Nvidiu.
+
+Ovaj tekst je „mapa bojišta“: šta se dešava, zašto je važno i kako se sve to preliva na obične gejmere i male AI timove.
+
+![Ilustracija Nvidia i AMD grafičkih kartica u AI data centru](/images/new-tech/ai-cip-rat-2025-hero.jpg)
+
+## Nvidia + Arm: NVLink Fusion i nova generacija AI data centara
+
+Najveća hardverska vest ovih dana stiže iz pravca Nvidie i Arm-a. Arm je zvanično ušao u NVLink Fusion ekosistem, što znači da njegovi Neoverse server CPU dizajni dobijaju podršku za direktno povezivanje sa Nvidia GPU-ovima, bez klasičnog PCIe uskog grla.
+
+Praktično, to znači sledeće:
+
+- Arm može da ponudi svojim klijentima CPU dizajne sa ugrađenim NVLink Fusion interkonektom, koji se bukvalno „ušteka“ u Nvidia AI akceleratore.
+- GPU-ovi i CPU-ovi dele memoriju mnogo efikasnije, kao jedan veliki bazen, umesto da sve ide kroz sporiji PCIe sloj.
+- Hyperscaleri (AWS, Google, Microsoft, Meta…) mogu da grade custom Arm servere koji su skrojeni specijalno za Nvidia AI workload-ove.
+
+Rezultat: Nvidia više ne prodaje samo „grafičke kartice“, već kompletne AI rack-ove i superčip platforme, dok Arm dobija jak adut da sledeća generacija data centara bude bazirana na Neoverse CPU-ovima.
+
+Drugim rečima, ovo je win–win savez: Nvidia širi dominaciju, a Arm ulazi u AI data centre na velika vrata.
+
+## AMD FSR Redstone: AI upscaling kao oružje za gejmere
+
+Dok Nvidia gradi infrastrukturu za data centre, AMD pokušava da se izbori na dva fronta odjednom: u serverima i kod kuće, na monitorima gejmera.
+
+Najsvežija vest za obične korisnike je **FSR Redstone** – sledeća generacija FidelityFX Super Resolution tehnologije. AMD je potvrdio da Redstone stiže 10. decembra 2025. godine, sa početkom podrške na novoj Radeon RX 9000 seriji.
+
+Za razliku od ranijih verzija FSR-a, Redstone ide „all-in“ na mašinsko učenje:
+
+- AI upscaling – slika se renderuje u nižoj rezoluciji, a zatim se uz pomoć ML modela podiže na 4K (ili više) uz daleko bolji kvalitet od klasičnog upscalinga.
+- AI frame generation – ubacuje dodatne „veštačke“ frejmove između pravih, pa FPS skače bez proporcionalnog opterećenja GPU-a.
+- Neural Radiance Caching – pametno keširanje indirektnog osvetljenja i refleksija, kako bi path tracing postao upotrebljiv i na „normalnim“ konfiguracijama.
+- Ray Regeneration – ML denoiser koji čisti šum sa ray-traced svetla pre nego što se slika upscaluje.
+
+Prvi veliki naslov koji dobija Redstone je Call of Duty: Black Ops 7, gde Ray Regeneration već pokazuje koliko može da smanji šum u refleksijama i senkama.
+
+Za gejmere to znači:
+
+- veći FPS bez brutalnog rušenja kvaliteta slike,
+- bolje ray tracing osvetljenje na AMD karticama, koje su do sada često kaskale za Nvidia RTX serijom,
+- potencijalno duži „životni vek“ GPU-a – uz dobar upscaling i frame generation, niža klasa karata može da izgura igre koje bi inače tražile high-end.
+
+## Custom AI čipovi: kada cloud kaže „napraviću svoje“
+
+Dok Nvidia i AMD vode javnu bitku, u pozadini se dešava još jedna revolucija: cloud giganti prave sopstvene AI čipove kako bi smanjili troškove i zavisnost od Nvidie.
+
+Nekoliko ključnih igrača:
+
+- Google već godinama koristi svoje TPU (Tensor Processing Unit) akceleratore, koji pokreću Gemini i gomilu Google servisa (Search, Photos, Maps).
+- Amazon AWS ima sopstvene Inferentia i Trainium čipove, optimizovane za inference i trening velikih modela uz niži trošak po tokenu.
+- Meta razvija sopstveni MTIA (Meta Training and Inference Accelerator) i kupuje chip start-upove kako bi ubrzala razvoj custom silicijuma.
+- OpenAI je ušao u višegodišnje partnerstvo sa Broadcom-om sa ciljem da do 2029. godine isporuči ogromne kapacitete custom AI akceleratora namenski dizajniranih za njihove modele.
+
+Poruka je jasna: najveće AI firme žele da:
+
+- kontrolišu ceo stack – od silicijuma, preko mreže, do modela,
+- optimizuju performanse i potrošnju tačno za svoje workload-ove,
+- plate manje nego kad kupuju tuđe GPU-ove uz tuđi margin.
+
+Za Nvidiu je to ozbiljan izazov. I dalje ima dominantan softverski ekosistem (CUDA, cuDNN, TensorRT), ali sve više obrade odlazi na ASIC akceleratore koji nikada ne liče na klasične „grafičke kartice“.
+
+## Šta sve ovo znači za gejmere, developere i male timove?
+
+Okej, sve ovo zvuči grandiozno, ali gde smo tu mi smrtnici?
+
+### Za gejmere
+
+Dobra vest: rat između Nvidie i AMD-a uglavnom znači bolju tehnologiju za isti ili sličan novac.
+
+- Nvidia će nastaviti da gura DLSS i svoje frame generation rešenja.
+- AMD sa Redstone-om mora da odgovori agresivno, pa ćemo verovatno dobiti:
+  - više igara sa podrškom za FSR/DLSS,
+  - bolji kvalitet slike pri upscalingu,
+  - realnu šansu da i mid-range kartice izgledaju „premium“ uz dobar AI pipeline.
+
+Ako ne juriš uvek najnoviji GPU, AI upscaling ti bukvalno poklanja još nekoliko godina igranja na pristojnim podešavanjima.
+
+### Za male AI timove i indie developere
+
+Ovde je slika malo kompleksnija:
+
+- Nvidia i dalje ima najudobniji razvojni ekosistem – većina ML biblioteka prvo se optimizuje za CUDA-u.
+- Istovremeno, cloud provajderi sve više guraju sopstvene čipove (TPU, Trainium, MTIA…), pa će budućnost verovatno biti multiplatformska.
+
+Praktične posledice:
+
+- biće sve važnije koristiti framework-e i alate koji znaju da rade na više back-endova (GPU, TPU, ASIC),
+- male ekipe će birati platformu po ceni i dostupnosti – nekad će to biti Nvidia, nekad Trainium, nekad TPU,
+- preveliki lock-in na jednog dobavljača može da postane skupa greška.
+
+### Za investitore i širu sliku
+
+AI čip rat je jedan od glavnih izvora priče o potencijalnom AI balonu:
+
+- kompanije ulažu stotine milijardi dolara u data centre, čipove i električnu energiju,
+- ako se ispostavi da je deo tog kapaciteta višak, neko će ostati sa vrlo skupom infrastrukturom i nedovoljno posla.
+
+Sa druge strane, potražnja za AI računanjem verovatno neće nestati – samo će se prerasporediti između GPU-ova, ASIC-a i novih akceleratora. Pitanje je ko će preživeti ovu trku, a ne da li će AI nestati.
+
+## Zaključak
+
+Godina 2025. jasno pokazuje da je pravi AI rat – rat za čipove:
+
+- Nvidia kroz saradnju sa Arm-om i NVLink Fusion pretvara svoje GPU-ove u stub nove generacije AI data centara.
+- AMD uz FSR Redstone pokušava da zatvori jaz u gaming segmentu i pokaže da AI nije samo stvar server soba, već i kućnih PC-jeva.
+- Cloud giganti poput Google-a, AWS-a, Meta-e i OpenAI-a razvijaju sopstvene AI čipove kako bi smanjili zavisnost, troškove i stekli potpunu kontrolu nad performansama.
+
+Za nas, obične korisnike i male timove, to znači više opcija, bolje performanse i verovatno više konfuzije u izboru hardvera i cloud-a. Na InfoHelm Tech portalu pratićemo ovu priču kroz testove, vodiče za izbor GPU-a za AI projekte i analize kako se „AI čip rat“ preliva na realan svet – od gejminga do startapova.
