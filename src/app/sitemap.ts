@@ -7,8 +7,11 @@ import path from 'path';
 const LOCALES = ['en', 'es', 'sr'] as const;
 type L = (typeof LOCALES)[number];
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tech.infohelm.org').replace(/\/+$/, '');
+const rawSite = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tech.infohelm.org';
+const SITE = rawSite.trim().replace(/\/+$/, ''); // ← dodali smo .trim()
+
 const CONTENT_ROOT = path.join(process.cwd(), 'content');
+
 
 // Fallback kategorije (meni redosled) — uključuje i 'apps'
 const CAT_FALLBACK: string[] = [
