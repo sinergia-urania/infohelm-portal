@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "count:articles": "node scripts/count-articles.cjs"
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.1",
