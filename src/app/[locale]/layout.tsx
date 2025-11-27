@@ -17,21 +17,17 @@ import SideRails from '../../components/SideRails';
 const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3055').replace(/\/$/, '');
 
 // GA + Search Console konfiguracija
-// Privremeno hard-code da budemo sigurni da GA radi u produkciji
 const GA_ID = 'G-0KVNXW0YPH' as const;
 
 const GOOGLE_SITE_VERIFICATION = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
-
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
 };
 
+// 👇 Umesto OS-based themeColor, forsiramo tamnu traku (default dark UX)
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#09090B' },
-    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
-  ],
+  themeColor: '#000000',
 };
 
 export function generateStaticParams() {
@@ -54,6 +50,9 @@ export default async function RootLayout({
   setRequestLocale(locale as (typeof i18n.locales)[number]);
   const messages = await getMessages();
 
+  // 🌓 Init teme:
+  // - default = DARK (kad nema localStorage zapisa)
+  // - ako je localStorage.theme === 'light', onda skidamo dark
   const themeInit = `
     (function () {
       try {

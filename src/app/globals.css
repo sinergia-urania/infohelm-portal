@@ -14,6 +14,7 @@
   --brand-gold: #facc15;
 }
 
+/* Tailwind theme tokens */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -21,13 +22,11 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* === DARK po OS-u: čist crni i svetli foreground === */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #f5f5f5;
-    color-scheme: dark;
-  }
+/* === DARK mod – kontrolisan ISKLJUČIVO preko .dark klase na <html> === */
+html.dark {
+  --background: #000000;
+  --foreground: #f5f5f5;
+  color-scheme: dark;
 }
 
 body {
@@ -278,7 +277,7 @@ html:not(.dark) .prose h4 {
   }
 
   /* Carbon kartice za zlatne naslove (ToC, TL;DR, Related, apps...) */
-    .card-carbon {
+  .card-carbon {
     @apply rounded-2xl border border-yellow-500/30 bg-neutral-950/80 text-zinc-100 shadow-lg shadow-black/40;
   }
 
@@ -294,6 +293,7 @@ html.dark .about-body {
   /* dark mod – skoro bela, jak kontrast na crnoj */
   color: #f9fafb !important;
 }
+
 /* Light mod: kad je about-body unutar card-carbon (tamna kartica),
    koristi svetliji tekst da ne nestane na pozadini. */
 html:not(.dark) .card-carbon .about-body {
