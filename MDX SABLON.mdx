@@ -1,8 +1,25 @@
 ---
+# ⬇⬇⬇ VAŽNO – PRE NEGO ŠTO KRENEŠ ⬇⬇⬇
+# 1) CATEGORY:
+#    - mora biti JEDNA od:
+#      news, new-tech, crypto-economy, science-space,
+#      reviews, software-gaming, lifestyle-entertainment, apps
+# 2) TAGS:
+#    - prvi tag UVEK isti kao "category".
+# 3) INDEXIRANJE / 404 BUG:
+#    - NIKAD ne lepiti u tekst "tragove alata" tipa:
+#      turn0search0, turn1news3, i slične interne ID-jeve.
+#    - ako ceo /news ili neka kategorija padne u 404 čim se doda novi fajl,
+#      99% je problem u TOM fajlu (iskrivljen znak, polu-obrisan marker…).
+#    - najbrži fix: obrisati taj fajl, kopirati neki ispravan .mdx
+#      i samo zameniti title/description/tekst.
+# 4) FRONTMATTER:
+#    - ne stavljati dodatni `---` unutar teksta (za razdvajanje koristi ***).
+#    - emoji i en-crte su ok, ali ako se desi čudan 404, prvo proveri ovaj fajl.
 title: "NASLOV ČLANKA"
 description: "Kratak opis za SEO i listing (1–2 rečenice)."
 date: "2025-11-20"
-category: "new-tech"           # Dozvoljeno: news, new-tech, crypto-economy, science-space, reviews, software-gaming, lifestyle-entertainment, apps
+category: "new-tech"           # Dozvoljeno: vidi listu gore
 image: "/images/new-tech/slug-hero.jpg"
 author: "InfoHelm Team"
 hero: "/images/new-tech/slug-hero.jpg"
