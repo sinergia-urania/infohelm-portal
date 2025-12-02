@@ -1,0 +1,201 @@
+---
+title: "Post-transformer AI - what comes after classic LLMs"
+description: "Pathway's Baby Dragon Hatchling and new post-transformer architectures promise AI that learns on the fly, remembers long-term and changes how we build games, agents and software."
+date: "2025-12-02"
+category: "software-gaming"
+image: "/images/software-gaming/post-transformer-ai-hero.jpg"
+author: "InfoHelm Team"
+hero: "/images/software-gaming/post-transformer-ai-hero.jpg"
+heroAlt: "Abstract neural network with a glowing dragon symbolizing a new AI architecture"
+tags:
+  - "software-gaming"
+  - "ai"
+  - "post-transformer"
+  - "llm"
+---
+
+# Post-transformer AI: what comes after classic LLMs
+
+For the last few years we’ve been living in the **“age of transformers”** – the architecture behind ChatGPT, Claude, Gemini and a huge number of smaller models. Everything we usually call an *LLM* is, in practice, some variant of a transformer: a huge network that reads tokens, computes attention and predicts the next word.
+
+But as models grow, we’re hitting a wall:
+
+- the context window is still limited,
+- models have no real long-term memory – only a temporary “context buffer”,
+- learning is **offline**: you train for months and then freeze the weights,
+- each jump in size demands brutal amounts of GPUs and power.
+
+That’s why more and more teams are talking about **“post-transformer”** architectures – a new generation of models that keep what’s good about transformers (quality, scaling) but add **built-in memory, online learning and much better efficiency**.
+
+One of the loudest attempts in this direction is **Baby Dragon Hatchling (BDH)** from Pathway – an architecture they openly label as *post-Transformer*, directly inspired by how the human brain works.
+
+![Abstract neural network and a dragon made of light](/images/software-gaming/post-transformer-ai-hero.jpg)
+
+## Quick refresher: what are transformers and where do they crack?
+
+Back in 2017, transformers replaced old RNN/LSTM models and brought two key ideas:
+
+1. **Attention** – instead of reading tokens strictly in sequence like an RNN, the model in each layer looks at the whole context and decides what matters.
+2. **Parallelism** – you can train huge models on thousands of GPUs because tokens are processed in batches.
+
+That led to the LLMs we use today: large decoder models (GPT-style) trained on billions or trillions of tokens.
+
+But transformers also have **built-in weaknesses**:
+
+- **Context is a sliding window** – even if you’re writing a 300-page book, the model only sees X thousand tokens at a time. The bigger the window, the more expensive it gets.
+- **No true memory** – every query is like a fresh scene. The model doesn’t remember you as a person unless developers bolt on external memory systems.
+- **Catastrophic forgetting** – if you try to fine-tune it on new data, the old knowledge can easily “smear” and degrade.
+- **Everything is one monolith** – world knowledge, working memory and reasoning are all mixed into one parameter blob.
+
+In practice that means:
+
+- an NPC powered by an LLM that plays a **wise old wizard** today might sound like a **crypto shill** tomorrow in the same town, because there is no stable personality or memory,
+- an AI co-pilot in your IDE forgets what you did last week and starts from scratch every time,
+- agents that seem smart in one long session, but the next day you have to **re-stuff** all the context through the prompt.
+
+That’s why more and more research is looking for **architectures with explicit memory and structure** – something between a brain and classical software.
+
+## Baby Dragon Hatchling: a “dragon” brain with built-in memory
+
+Pathway is a small but aggressive Palo Alto team claiming they’ve built “a missing link between transformers and brain-like models”. Their **Baby Dragon Hatchling (BDH)** architecture is described as:
+
+- a **network of “neural particles”** that communicate locally (instead of global attention over all tokens),
+- a **scale-free graph** – some nodes are dense hubs, most have few connections, similar to real neural networks,
+- **working memory based on synaptic plasticity** – connections are *temporarily* strengthened or weakened during reasoning,
+- a clear separation between **long-term parameters and short-term state**.
+
+In plain language:
+
+- instead of letting every token “look at” every other token via expensive attention, BDH uses **local interactions** on a graph,
+- **memory is not just a stream of tokens**, but changes in the connections themselves over a short time window – like “traces” in the brain,
+- the architecture is designed to be **more interpretable** – you can track which parts of the graph carry what kinds of information.
+
+Early experiments suggest that BDH:
+
+- can reach **roughly GPT-2-level** language quality and translation with similar parameter counts,
+- preserves **transformer-like scaling** – more data and compute still bring better performance,
+- opens doors for **algorithmic reasoning** and longer-term memory without exploding context windows.
+
+We’re not talking about a model that will replace GPT-4/5 in production tomorrow, but as an **architecture** BDH is interesting because it:
+
+- explicitly **separates memory from the core model**,  
+- tries to mimic **biological principles (Hebbian learning, scale-free networks)**,  
+- is designed from day one for **real-time adaptation and lifelong generalization**.
+
+## What this means for games and NPCs
+
+So why is this article under **software-gaming** rather than pure AI theory?
+
+Because **games** might be one of the first places where post-transformer ideas become very visible.
+
+Imagine a world where:
+
+- an NPC **truly remembers** all your previous encounters – not just as a log line, but as **opinions, loyalties and grudges**,
+- the game world has **persistent collective memory** – the city remembers who betrayed whom, who saved whom, who sold what to whom, and it all shapes future events,
+- an “AI dungeon master” genuinely learns your play style, generates new quests on the fly and tweaks the rules to stay challenging but fair,
+- a multiplayer server has a single persistent **AI “world overseer”** that builds the server’s history together with players over months and years.
+
+With today’s transformer LLMs, we can hack some of this together:
+
+- store logs in external databases,
+- push *summaries* of previous interactions into each new prompt,
+- build custom server logic that glues memory around the model.
+
+But it scales terribly and costs a fortune. Once you have thousands of NPCs and tens of thousands of players, prompt-engineering becomes a nightmare and GPU bills go through the roof.
+
+Post-transformer architectures with:
+
+- **built-in working memory** (short-term), and
+- **structured long-term memory** (graphs or hierarchical states)
+
+could lead to NPC systems that:
+
+- are **far cheaper per instance** (each NPC runs a small “dragon mind”),
+- naturally remember interactions without hand-crafted prompts,
+- can learn **over the lifetime of the game** – an NPC becomes a “seasoned veteran” after 200 hours of server time, not after the next retrain in a datacenter.
+
+For studios and indie teams, this enables a whole new class of games: **living worlds** that aren’t entirely pre-scripted, but evolve together with players.
+
+## What this means for software, agents and co-pilots
+
+The same logic applies beyond gaming.
+
+Today’s AI agents and co-pilots are mostly:
+
+- **statistical autocomplete on steroids** – very powerful, but still “token by token”,
+- lacking continuity – every CLI tool, IDE plugin or chatbot has to re-explain the context each time,
+- with memory that’s “bolted on”: knowledge bases, vector search, manual integrations.
+
+A post-transformer approach promises:
+
+1. **Long-term project memory**  
+   A co-pilot that remembers what your codebase looked like for months, and knows *why* you did things in a certain way – not just *how*.
+
+2. **Real personalization**  
+   An assistant that adapts to your work style, habits, pace and even mood – because it actually learns and generalizes over time.
+
+3. **Autonomous agents**  
+   Instead of an “agent” that gets a fresh prompt every step and forgets the last one, you get an architecture that can run for days or weeks with a stable internal memory and “character”.
+
+4. **Better planning and long-horizon goals**  
+   Post-transformer designs are naturally better suited for **multi-step planning**, where decisions depend not only on the current prompt but also on long-term history and expected consequences.
+
+For developers, this is effectively a shift from “LLM as a function” to:
+
+> **AI as a long-running process inside your system** – with its own memory, habits and history.
+
+## It’s not just Dragon: other paths “beyond transformers”
+
+BDH is not the only project trying to move beyond pure transformers.
+
+In parallel, other lines of work are emerging:
+
+- **Hybrid models (Transformer + SSM)**  
+  Models like IBM’s *Bamba-9B* combine transformers with **state-space models** (Mamba-style) to cut memory and KV-cache needs while preserving quality.  
+  For gaming and real-time apps, that’s crucial: more **throughput and lower latency**, meaning you can run more AI instances on the same hardware.
+
+- **Fast reasoning models for the edge**  
+  Smaller, hybrid models focused on **fast reasoning** with 2–3× lower latency, designed for devices with limited memory (phones, consoles, VR headsets).  
+  That’s directly relevant for games: it lets AI partly **live on the client**, not only on the server.
+
+- **New learning paradigms**  
+  Things like *nested learning* and related work try to tackle **continual learning** – how a model can keep learning throughout its lifetime without forgetting old skills.  
+  That’s key for agents that should run for months without a hard reset.
+
+- **Hierarchical memory networks**  
+  Some architectures explicitly build a **hierarchy of memories** – short-term, mid-term and long-term – something like L1/L2/L3 cache, but for knowledge and experiences.
+
+Common theme:
+
+> Less flat, monolithic networks; more **structure, memory and specialization**.
+
+## What should a “normal” developer do with all this?
+
+Realistically, as a dev you can’t just download “BDH 1.0” tomorrow and drop it in as a GPT replacement. But you can prepare your architecture:
+
+1. **Separate “brain” and memory already now**  
+   Keep knowledge, context and history in clear layers (databases, graphs, event logs), instead of pushing everything into the prompt.
+
+2. **Write architecture-agnostic AI code**  
+   Build your AI adapters so you can swap GPT-X for a future post-transformer model (BDH, hybrid SSM, whatever) without rewriting the entire system.
+
+3. **Think in terms of agents, not single queries**  
+   Design systems where AI has a “lifecycle”: state, goals, tasks, history. That maps naturally to architectures with built-in memory.
+
+4. **In games – separate world logic from the “AI brain”**  
+   If you’re using prompt-based LLMs for NPCs today, keep world history in separate structures (graph DBs, event stores), so later you can plug in a post-transformer brain that actually uses those data structures efficiently.
+
+## Conclusion
+
+Transformers gave us impressive LLMs – but also a ceiling: enormous models, expensive GPUs, limited context and essentially no real memory.  
+Post-transformer architectures like **Baby Dragon Hatchling** are trying to make the next leap – **AI that truly learns and remembers over time**, closer to how a brain works.
+
+For those of us building games, apps and AI agents, the next 5–10 years could bring:
+
+- NPCs with real personality and history, not just an 8k-token prompt,
+- co-pilots that remember your projects for months instead of a single session,
+- agents that behave like long-running processes, not just a `complete(prompt)` call.
+
+We may stay in the transformer world for a while longer – but it’s already clear that the next generation of AI won’t just be a bigger model with more parameters. It will be a **different kind of mind**.
+
+> **Disclaimer:** This article is for informational purposes only and does not constitute financial, investment, legal or any other form of professional advice.

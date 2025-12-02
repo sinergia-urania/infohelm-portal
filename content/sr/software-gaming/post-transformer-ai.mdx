@@ -1,0 +1,201 @@
+---
+title: "Post-transformer AI - sta dolazi posle klasicnih LLM-ova"
+description: "Pathwayjev Baby Dragon Hatchling i nove post-transformer arhitekture obecavaju AI koji uci u hodu, pamti dugorocno i menja nacin na koji razvijamo igre, agente i softver."
+date: "2025-12-02"
+category: "software-gaming"
+image: "/images/software-gaming/post-transformer-ai-hero.jpg"
+author: "InfoHelm Team"
+hero: "/images/software-gaming/post-transformer-ai-hero.jpg"
+heroAlt: "Apstraktni prikaz neuronske mreze i zmaja od svetlosti koji simbolizuju novu AI arhitekturu"
+tags:
+  - "software-gaming"
+  - "ai"
+  - "post-transformer"
+  - "llm"
+---
+
+# Post-transformer AI: šta dolazi posle klasičnih LLM-ova
+
+Poslednjih nekoliko godina živimo u **“dobi transformera”** – arhitekture koja pokreće ChatGPT, Claude, Gemini i gomilu manjih modela. Sve što zovemo *LLM* u praksi je neka varijanta transformera: ogromna mreža koja čita tokene, računa pažnju i ispaljuje sledeću reč.
+
+Ali kako modeli rastu, sve češće udaramo u zid:
+
+- kontekstni prozor je i dalje ograničen,
+- modeli nemaju pravu dugoročnu memoriju – samo “privremeni” kontekst,
+- učenje je **offline**: model se trenira mesecima, pa se zamrzne,
+- svaki sledeći skok u veličini znači brutalno više GPU-a i struje.
+
+Zbog toga se sve glasnije priča o **“post-transformer”** arhitekturama – novoj generaciji modela koji bi zadržali dobre strane transformera (kvalitet, skaliranje), ali dobili **ugrađenu memoriju, učenje u hodu i mnogo veću efikasnost**.
+
+Jedan od najzvučnijih pokušaja u tom smeru je arhitektura **Baby Dragon Hatchling (BDH)** kompanije Pathway – model koji otvoreno nose etiketu *post-Transformer* i koji je direktno inspirisan načinom na koji radi ljudski mozak.
+
+![Apstraktni prikaz neuronske mreze i zmaja od svetlosti](/images/software-gaming/post-transformer-ai-hero.jpg)
+
+## Kratak podsetnik: šta su transformeri i gde pucaju
+
+Transformer je 2017. godine zamenio stare RNN/LSTM modele i doneo dve ključne stvari:
+
+1. **Pažnju (attention)** – model ne čita tokene “na traci” kao RNN, već u svakom sloju gleda u ceo kontekst i odlučuje šta je važno.
+2. **Paralelizam** – možeš da treniraš ogromne modele na hiljadama GPU-a, jer se tokeni obrađuju u paketima.
+
+To je dovelo do LLM-ova koje danas koristimo: veliki dekoder modeli (GPT-stil) trenirani na bilionima tokena.
+
+Ali transformer ima i svoje **ugrađene slabosti**:
+
+- **Kontekst je ograničen prozor** – i kada pišeš roman od 300 strana, model u svakom trenutku vidi samo X hiljada tokena. Što je prozor veći, to je skuplje.
+- **Nema pravu memoriju** – svaki upit je kao nova “scena”. Model ne pamti te kao osobu, osim ako mi kao developeri ne izgradimo posebne baze i trikove iznad njega.
+- **Katastrofalno zaboravljanje** – kada pokušavaš da ga treniraš dalje na novim podacima, stari se znanje lako razliva i gubi.
+- **Sve je u jednom monolitu** – struktura znanja, radna memorija i način zaključivanja su pomešani u istu mrežu parametara.
+
+To u praksi znači:
+
+- NPC sa LLM-om koji danas glumi **mudrog čarobnjaka**, sutra na istom mestu priča kao **promoter za crypto**, jer nema stabilnu ličnost ni memoriju,
+- AI co-pilot u IDE-u koji zaboravlja šta si radio prošle nedelje i svaki put kreće iz početka,
+- agenti koji deluju pametno u jednoj dugačkoj sesiji, a već sutra sve moramo ručno da im “returnamo” kroz prompt.
+
+Zato sve više timova pokušava da napravi **arhitekture sa memorijom i jasnijom strukturom** – nešto između mozga i klasičnog softvera.
+
+## Baby Dragon Hatchling: “zmajski” mozak sa ugrađenom memorijom
+
+Pathway je mala, ali agresivna ekipa iz Palo Alta koja tvrdi da je napravila “kariku koja nedostaje između transformera i modela mozga”. Njihova arhitektura **Baby Dragon Hatchling (BDH)** opisuje se kao:
+
+- **mreža “neuronskih čestica”** koje komuniciraju lokalno (umesto globalne pažnje nad svim tokenima),
+- **scale-free graf** – neki čvorovi imaju mnogo veza (hubovi), većina ima malo, slično kao neuronske mreže u mozgu,
+- **radna memorija zasnovana na sinaptičkoj plastičnosti** – veze se *privremeno* jačaju ili slabe tokom rezonovanja,
+- **razdvojen “hardware” i “razmišljanje”** – model ima jasniju podelu između dugoročnih parametara i kratkoročnih stanja.
+
+U prevodu na normalan jezik:
+
+- umesto da svaki token “gleda” svakog drugog preko skupog attention mehanizma, BDH koristi **lokalne interakcije** u grafu,
+- **memorija nije samo niz tokena**, već promena u samim vezama tokom kratkog vremenskog prozora – nešto kao “tragovi” u mozgu,
+- arhitektura je dizajnirana tako da bude **tumačiva** (možeš da pratiš koje grane grafa nose koje tipove informacija).
+
+Prvi eksperimenti pokazuju da BDH:
+
+- može da postigne **GPT-2 nivo kvaliteta** na jeziku i prevodima sa sličnim brojem parametara,
+- zadržava **Transformer-like skaliranje** – što više podataka i računanja, to bolja performansa,
+- otvara vrata **algoritamskom zaključivanju** i dugoročnijem pamćenju bez brutalnog širenja konteksta.
+
+Još uvek ne pričamo o modelu koji sutra menja GPT-4/5 u praksi, ali kao **arhitektura** BDH je zanimljiva upravo zato što:
+
+- eksplicitno **odvaja memoriju od samog modela**,  
+- pokušava da imitira **biološke principe (Hebbovo učenje, skale-free mreže)**,  
+- dizajnirana je od starta da radi **u realnom vremenu**, da se prilagođava i generalizuje kroz vreme.
+
+## Šta to znači za igre i NPC-jeve
+
+Zašto se sve ovo uopšte nalazi u kategoriji **software-gaming**, a ne “čista” AI teorija?
+
+Zato što su **igre** možda prvo mesto gde će se post-transformer ideje osetiti u praksi.
+
+Zamisli svet u kome:
+
+- NPC **pametno pamti** sve tvoje prethodne susrete, ali ne samo kao “log liniju” – već kroz **oblik ličnosti**, stavova i odnosa,
+- svet igre ima **trajnu kolektivnu memoriju** – grad se seća ko je koga izdao, ko je koga spasao, ko je šta prodao, i to utiče na buduće događaje,
+- “AI dungeon master” zaista uči tvoj stil igre, pravi nove questove u hodu i menja pravila tako da ostane izazovno, ali fer,
+- multiplayer server ima jednog persistentnog **AI “gospodara sveta”** koji mesecima i godinama gradi istoriju servera zajedno sa igračima.
+
+Sa današnjim transformer LLM-ovima sve ovo delom možemo da hakujemo:
+
+- logove držimo u eksternoj bazi,
+- u prompt svake interakcije guramo *sažetke* prethodnih susreta,
+- na nivou servera pišemo custom logiku koja “lepi” pamćenje oko modela.
+
+Ali to skalira užasno loše i skupo. Kad imaš hiljade NPC-eva i desetine hiljada igrača, prompt-engineering postaje noćna mora, a računi za GPU odlaze u nebesa.
+
+Post-transformer arhitekture sa:
+
+- **ugrađenom radnom memorijom** (kratkoročno) i
+- **strukturnom dugoročnom memorijom** (preko grafa ili hijerarhijskih stanja)
+
+mogle bi da dovedu do NPC sistema koji:
+
+- su **mnogo jeftiniji po instanci** (svaki NPC mali “dragon mind”),
+- prirodno pamte interakcije bez ručnog pakovanja promptova,
+- mogu da uče **tokom života igre** – NPC postaje “isukusan veteran” posle 200 sati servera, a ne posle sledećeg retrain-a u datacentru.
+
+Za studije i indie timove to znači potpuno novu klasu igara: **živi svetovi** koji nisu skriptovani unapred, već se razvijaju zajedno sa igračima.
+
+## Šta to znači za softver, agente i co-pilote
+
+Isti princip važi i van gaminga.
+
+Danas su AI agenti i co-piloti uglavnom:
+
+- **statistički “autocomplete” na sterodima** – jako pametan, ali ipak “token po token”,
+- bez kontinuiteta – svaki CLI alat, IDE ekstenzija ili chatbot mora iznova da mu objasni kontekst,
+- sa memorijom koja je “dodana spolja”: baze znanja, vektorsko pretraživanje, ručne integracije.
+
+Post-transformer pristup obećava:
+
+1. **Dugoročnu memoriju projekata**  
+   Co-pilot koji pamti kako tvoj kod izgleda mesecima, zna *zašto* ste nešto implementirali na određeni način, ne samo *kako*.
+
+2. **Stvarnu personalizaciju**  
+   AI asistent koji se prilagođava tvom stilu rada, navikama, tempu, pa čak i raspoloženju – zato što pamti i generalizuje kroz vreme.
+
+3. **Autonomne agente**  
+   Umesto “agenta” koji u svakoj rundi dobije svež prompt i zaboravi prethodnu, dobijaš arhitekturu koja može da radi danima ili nedeljama, uz stabilnu internu memoriju i “karakter”.
+
+4. **Bolje planiranje i dugoročne ciljeve**  
+   Post-transformer dizajn je prirodno pogodniji za **planiranje u više koraka**, gde se odluke ne zasnivaju samo na trenutnom promptu, već na istoriji i predviđanju daljih posledica.
+
+Za developere, to praktično znači prelazak sa “LLM kao funkcije” na:
+
+> **AI proces koji živi u tvom sistemu** – sa sopstvenom memorijom, navikama i istorijom.
+
+## Nije samo Dragon: drugi putevi “posle transformera”
+
+BDH nije jedina priča u smeru “što dalje od čistog transformera”.
+
+Paralelno se razvijaju i druge linije:
+
+- **Hibridni modeli (Transformer + SSM)**  
+  IBM-ov model *Bamba-9B* kombinuje transformer sa **state-space** arhitekturama (Mamba2) kako bi smanjio potrebu za memorijom i KV-cache-om, uz zadržavanje kvaliteta.  
+  Za gaming i real-time aplikacije bitno je što takvi modeli nude **veći throughput i manju latenciju**, što znači više AI-instanci po istom hardveru.
+
+- **Brzi “reasoning” modeli za edge**  
+  Microsoft radi na malim modelima sa hibridnom arhitekturom i fokusom na **brzo zaključivanje** uz 2–3x manju latenciju, namenjenim uređajima sa malo memorije (telefoni, konzole, VR uređaji).  
+  To je direktno zanimljivo za igre, jer ti omogućava da AI “živi” **na klijentu**, a ne samo na serveru.
+
+- **Nove paradigme u učenju**  
+  Google-ov koncept *Nested Learning* i slični radovi pokušavaju da reše problem **kontinualnog učenja** – kako da model uči ceo život, a da ne zaboravi staro.  
+  To je ključno za agente koji bi trebalo da rade mesecima bez hard reset-a.
+
+- **Hijerarhijske memorijske mreže**  
+  Pojavljuju se i arhitekture koje eksplicitno grade **hijerarhiju memorije** – kratkoročnu, srednjoročnu i dugoročnu – nešto kao L1/L2/L3 keš, ali za znanje i iskustvo.
+
+Zajednički imenitelj:
+
+> Manje “ravnih”, monolitnih mreža; više **strukture, memorije i specijalizacije**.
+
+## Šta da radi običan developer sa svim ovim?
+
+Realno, danas kao dev ne možeš sutra samo da instaliraš “BDH 1.0” i zameniš GPT u svom projektu. Ali možeš da se pripremiš:
+
+1. **Razdvajaj “mozak” od memorije već sada**  
+   Držiš znanje, kontekst i istoriju u jasnim slojevima (baze, grafovi, event logovi), umesto da sav posao guraš u prompt.
+
+2. **Piši kod koji je arhitekturalno agnostičan**  
+   Napravi svoje AI adaptere tako da sutra možeš da zameniš GPT-X za neki post-transformer (BDH, hibridni SSM, šta god) bez resovanja celog sistema.
+
+3. **Razmišljaj u terminima agenata, ne samo upita**  
+   Dizajniraj sisteme gde AI ima “tok života”: stanje, ciljeve, zadatke, istoriju. To se kasnije prirodno mapira na arhitekture sa memorijom.
+
+4. **U igrama – razdvoji logiku sveta i “AI mozga”**  
+   Ako danas praviš NPC-e s prompt-based LLM-ovima, drži istoriju sveta u odvojenim strukturama (grafske baze, event store), da bi sutra lakše nakačio post-transformer mozak koji može bolje da koristi te podatke.
+
+## Zaključak
+
+Transformeri su nas doveli do impresivnih LLM-ova, ali i do plafona: ogromni modeli, skupi GPU-i, ograničen kontekst i nikakva prava memorija.  
+Post-transformer arhitekture poput **Baby Dragon Hatchling** pokušavaju da naprave sledeći skok – **AI koji zaista uči i pamti kroz vreme**, bliže načinu na koji radi mozak.
+
+Za nas koji pravimo igre, aplikacije i AI agente, ovo znači da u narednih 5–10 godina možemo da očekujemo:
+
+- NPC-eve koji imaju ličnost i istoriju, a ne samo “prompt od 8k tokena”,
+- co-pilote koji pamte projekte mesecima umesto jedne sesije,
+- agente koji rade kao dugoročni procesi, a ne kao funkcija `complete(prompt)`.
+
+Možda još neko vreme ostajemo u transformer svetu – ali već je jasno da sledeća generacija AI neće biti samo veći model sa više parametara, već **drugačiji mozak**.
+
+> **Disclaimer:** Tekst ima informativni karakter i ne predstavlja finansijski, investicioni, pravni niti bilo koji drugi vid profesionalnog saveta.
