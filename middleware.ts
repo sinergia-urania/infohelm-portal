@@ -36,10 +36,8 @@ function detectLocale(req: NextRequest): string {
     return cookieLocale;
   }
 
-  // 2) Geo po zemlji (radi na Vercel-u)
-    // 2) Geo po zemlji (radi na Vercel-u preko x-vercel-ip-country headera)
+  // 2) Geo po zemlji (radi na Vercel-u preko x-vercel-ip-country headera)
   const country = (req.headers.get('x-vercel-ip-country') || '').toUpperCase();
-
 
   if (EX_YU_COUNTRIES.has(country)) return 'sr';
   if (SPANISH_COUNTRIES.has(country)) return 'es';
@@ -57,10 +55,40 @@ function detectLocale(req: NextRequest): string {
   return defaultLocale ?? 'en';
 }
 
+function isBypassPath(pathname: string) {
+  // Next internals + API
+  if (pathname.startsWith('/_next')) return true;
+  if (pathname.startsWith('/api')) return true;
+
+  // Public assets (kod tebe slike idu ovde)
+  if (pathname.startsWith('/images')) return true;
+  if (pathname.startsWith('/icons')) return true;
+  if (pathname.startsWith('/assets')) return true;
+  if (pathname.startsWith('/fonts')) return true;
+
+  // Specijalni fajlovi / rute
+  if (pathname === '/favicon.ico') return true;
+  if (pathname === '/robots.txt') return true;
+  if (pathname === '/sitemap.xml') return true;
+  if (pathname === '/sitemap-news.xml') return true;
+  if (pathname === '/opensearch.xml') return true;
+  if (pathname === '/ads.txt') return true;
+  if (pathname === '/app-ads.txt') return true;
+  if (pathname === '/manifest.webmanifest') return true;
+  if (pathname === '/feed.xml') return true;
+
+  return false;
+}
+
 export default function middleware(req: NextRequest) {
   const {pathname} = req.nextUrl;
 
-  // Ako path već ima prefiks /en, /es, /sr → NE diramo, puštamo intlMiddleware
+  // Ne diramo statiku/specijalne fajlove
+  if (isBypassPath(pathname)) {
+    return NextResponse.next();
+  }
+
+  // Ako path već ima prefiks /en, /es, /sr → puštamo intlMiddleware
   const hasLocalePrefix = locales.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)
   );
@@ -69,19 +97,24 @@ export default function middleware(req: NextRequest) {
     return intlMiddleware(req);
   }
 
-  // Specijalno ponašanje za root "/"
+  // Specijalno ponašanje za root "/": geo/accept-language detekcija
   if (pathname === '/') {
     const locale = detectLocale(req);
     const url = req.nextUrl.clone();
     url.pathname = `/${locale}`;
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(url, {status: 308});
   }
 
-  // Sve ostalo prepustimo next-intl middleware-u
-  return intlMiddleware(req);
+  // Sve ostalo bez prefiksa → stabilno preusmeri na defaultLocale
+  // (ne radimo geo ovde, da Google uvek dobije isti canonical URL)
+  const url = req.nextUrl.clone();
+  url.pathname = `/${defaultLocale}${pathname}`;
+  return NextResponse.redirect(url, {status: 308});
 }
 
-// Matcher – isto što si imao, da hvata root i lokalizovane rute
+// Matcher – hvata i unprefixed rute, ali preskače statiku i specijalne fajlove
 export const config = {
-  matcher: ['/', '/(en|es|sr)/:path*']
+  matcher: [
+    '/((?!_next|api|images|icons|assets|fonts|favicon.ico|robots.txt|sitemap|opensearch.xml|ads.txt|app-ads.txt|manifest.webmanifest|feed.xml).*)'
+  ]
 };
