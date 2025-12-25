@@ -114,7 +114,5 @@ export default function middleware(req: NextRequest) {
 
 // Matcher – hvata i unprefixed rute, ali preskače statiku i specijalne fajlove
 export const config = {
-  matcher: [
-    '/((?!_next|api|images|icons|assets|fonts|favicon.ico|robots.txt|sitemap|opensearch.xml|ads.txt|app-ads.txt|manifest.webmanifest|feed.xml).*)'
-  ]
+  matcher: ['/((?!api|_next|.*\\..*).*)']
 };

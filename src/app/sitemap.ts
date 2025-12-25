@@ -8,10 +8,9 @@ const LOCALES = ['en', 'es', 'sr'] as const;
 type L = (typeof LOCALES)[number];
 
 const rawSite = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tech.infohelm.org';
-const SITE = rawSite.trim().replace(/\/+$/, ''); // ← dodali smo .trim()
+const SITE = rawSite.trim().replace(/\/+$/, '');
 
 const CONTENT_ROOT = path.join(process.cwd(), 'content');
-
 
 // Fallback kategorije (meni redosled) — uključuje i 'apps'
 const CAT_FALLBACK: string[] = [
@@ -29,6 +28,7 @@ function url(locale: L, p = '') {
   const suffix = p ? `/${p.replace(/^\/+/, '')}` : '';
   return `${SITE}/${locale}${suffix}`;
 }
+
 function mdxPath(locale: string, category: string, slug: string) {
   return path.join(CONTENT_ROOT, locale, category, `${slug}.mdx`);
 }
@@ -47,6 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         sr: url('sr', p),
         'x-default': url('en', p),
       };
+
       items.push({
         url: url(loc, p),
         lastModified: now,
@@ -60,14 +61,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllSlugs();
 
   for (const e of posts) {
-    // alternate jezici (isti category/slug)
+    // Alternates jezici (isti category/slug)
     const langs: Record<string, string> = {};
+
     for (const l of posts) {
       if (l.category === e.category && l.slug === e.slug) {
         langs[l.locale] = url(l.locale as L, `${l.category}/${l.slug}`);
       }
     }
-    langs['x-default'] = url('en', `${e.category}/${e.slug}`);
+
+    // ✅ x-default MORA da pokaže na postojeću verziju (ne hardcode en!)
+    const xDefault =
+      langs.en ?? langs.sr ?? langs.es ?? url(e.locale as L, `${e.category}/${e.slug}`);
+    langs['x-default'] = xDefault;
 
     // lastModified iz mtime MDX fajla
     let lastModified = now;
@@ -92,9 +98,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const loc of LOCALES) {
       let lastModified = now;
 
-      // Ako kategorija ima postove u datom jeziku — koristi najskoriji mtime,
-      // inače ostavi "now" (OK je jer je listing generisani resurs).
+      // Ako kategorija ima postove u datom jeziku — koristi najskoriji mtime
       const inCat = posts.filter((p) => p.category === cat && p.locale === loc);
+
       if (inCat.length) {
         const mtimes = await Promise.all(
           inCat.map(async (p) => {
@@ -106,6 +112,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             }
           })
         );
+
         const max = Math.max(...mtimes);
         if (isFinite(max) && max > 0) lastModified = new Date(max);
       }
