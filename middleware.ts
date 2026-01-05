@@ -114,5 +114,11 @@ export default function middleware(req: NextRequest) {
 
 // Matcher – hvata i unprefixed rute, ali preskače statiku i specijalne fajlove
 export const config = {
-  matcher: ['/((?!api|_next|.*\\..*).*)']
+  matcher: [
+    // hvataj sve osim api/_next i "pravih fajlova" sa ekstenzijom na kraju
+    '/((?!api|_next|.*\\.[a-zA-Z0-9]{2,5}$).*)',
+
+    // ali ipak obradi feed.xml rute (jer su validne rute, i treba redirect)
+    '/:path*/feed.xml',
+  ],
 };
