@@ -1,0 +1,124 @@
+---
+title: "Stablecoin vodič: šta su, kako rade i gde ljudi najčešće greše"
+description: "USDT, USDC, DAI… stablecoini su ‘mirna luka’ u kriptu, ali nisu bez rizika. Ovo je evergreen vodič: vrste stablecoina, depeg, rezerve, mreže, bridževi i praktična check-lista za sigurnije korišćenje."
+date: "2026-01-07"
+category: "crypto-economy"
+image: "/images/crypto-economy/stablecoins-guide-hero.jpg"
+author: "InfoHelm Team"
+hero: "/images/crypto-economy/stablecoins-guide-hero.jpg"
+heroAlt: "Ilustracija digitalnog dolara (stablecoin) uz graf stabilnosti i kripto mrežu na tamnoj pozadini"
+tags: ["crypto-economy", "stablecoins", "usdt", "usdc", "defi", "risk"]
+---
+
+Stablecoin je kripto token koji pokušava da drži stabilnu cenu — najčešće vezanu za **1 USD**. Ljudi ga koriste kao “keš” u kriptu: za čuvanje vrednosti između trade-ova, slanje novca, DeFi, plaćanja i brzu zamenu između mreža.
+
+Ali “stabilno” ne znači “bez rizika”. Stablecoini imaju svoje slabosti: od **depeg-a**, preko rizika izdavaoca i rezervi, do problema sa mrežama i bridževima.
+
+![Ilustracija digitalnog dolara (stablecoin) uz graf stabilnosti i kripto mrežu na tamnoj pozadini](/images/crypto-economy/stablecoins-guide-hero.jpg)
+
+## Šta stablecoin zapravo stabilizuje
+
+U praksi, stablecoin pokušava da održi:
+- **cenu** (npr. 1 token ≈ 1 USD),
+- **likvidnost** (da možeš lako da ga zameniš),
+- **otkup** (da postoji mehanizam da se vrati na “1:1” kroz tržište ili otkup kod izdavaoca).
+
+Kada bilo koja od ove tri stvari pukne, dobiješ problem.
+
+## Tri glavne vrste stablecoina
+
+### 1) Fiat-kolateralizovani (najčešći)
+Ovo su stablecoini koje podržavaju rezerve u “tradicionalnom” sistemu (gotovina, kratkoročni državni papiri, depoziti…).
+
+**Prednosti:**
+- obično najstabilniji u normalnim uslovima
+- najviše likvidnosti na berzama i u DeFi-u
+
+**Rizici:**
+- rizik izdavaoca (kompanija, banke, regulatorni pritisak)
+- transparentnost rezervi (koliko često i kako se proverava)
+
+### 2) Kripto-kolateralizovani (overcollateralized)
+Stablecoin je “zaključan” uz kripto kolateral, često više vrednosti nego što je izdato stablecoina.
+
+**Prednosti:**
+- više “on-chain” logike i automatizacije
+- često bolja proverljivost (vidi se kolateral)
+
+**Rizici:**
+- volatilnost kolaterala → može doći do likvidacija u stresu
+- smart contract rizik
+
+### 3) Algoritamski (najrizičniji)
+Stabilnost se pokušava održati algoritmom i tržišnim podsticajima, bez klasičnih rezervi.
+
+**Prednosti:**
+- idejno elegantno
+
+**Rizici:**
+- istorijski najčešće pucaju u stresnim uslovima
+- “spirala smrti” kada poverenje nestane
+
+## Depeg: šta je i zašto se dešava
+
+**Depeg** znači da stablecoin prestane da bude blizu 1 USD (npr. ode na 0.97 ili 1.03). Mali odskok je normalan, ali veći i dugotrajan je crvena zastavica.
+
+Najčešći uzroci:
+- panika i masovna prodaja (likvidnost ne stiže da upije pritisak)
+- sumnja u rezerve ili otkup (da li je “1:1” realno?)
+- problemi sa bankama/partnerima izdavaoca
+- stres na tržištu (kada svi beže u “pravi” keš)
+- problemi na mreži (zagušenje, visoke fee, prekidi)
+- bridževi i “wrapped” varijante (nije isto što i original)
+
+## Mreže i “isti” stablecoin koji nije isti
+
+USDT na Ethereum-u nije isto što i USDT na Tron-u ili BNB Chain-u u smislu infrastrukture i rizika transfera, iako “piše USDT”.
+
+Praktično:
+- **na kojoj mreži držiš stablecoin** utiče na fee, brzinu i rizike
+- pogrešna mreža pri slanju = najčešća početnička katastrofa
+
+**Zlatno pravilo:** uvek proveri da su *mreža i adresa* 100% tačni, i pošalji test iznos.
+
+## Bridževi: najopasnija “prečica”
+
+Kad prebacuješ stablecoin između mreža, često zapravo koristiš:
+- **most (bridge)** koji zaključava original i izdaje “wrapped” verziju na drugoj mreži.
+
+Tu se uvodi dodatni rizik:
+- rizik samog bridge-a (hakovi su bili česti u istoriji kripta)
+- rizik “wrapped” tokena (zavisi od toga da li se može otkupiti nazad)
+
+Ako ti treba evergreen pravilo:
+**što manje bridževa između tebe i “pravog” stablecoina, to bolje.**
+
+## “Visok prinos na stablecoin” — gde ljudi najviše izgube živce
+
+Ako vidiš 20–50% “sigurnog” prinosa na stablecoin, to obično znači:
+- protokol ili strategija preuzima dodatni rizik (kreditni, likvidacioni, kontraktni)
+- ili je to promocija koja traje dok ne prestane
+
+Realnija slika:
+- stablecoin prinosi jesu mogući, ali nikad nisu “bez rizika”
+- najveći rizik nije tržište, nego **mehanizam** koji obećava “stabilno + visoko”
+
+## Check-lista za normalno korišćenje stablecoina (bez drame)
+
+1) **Proveri mrežu pre slanja** (i uvek test transfer).  
+2) **Koristi zvanične adrese tokena** (ne “random” contract iz komentara).  
+3) **Razdvoji uloge:**  
+   - hot wallet za DeFi/transfer  
+   - “mirniji” wallet za veći balans  
+4) **Pazi na approvals u DeFi-u** i povremeno ukidaj nepotrebne dozvole.  
+5) **Ne juri prinose koje ne razumeš.** Ako ne umeš da objasniš izvor prinosa u 2 rečenice — preskoči.  
+6) **Razumi otkup/rezervu (bar osnovno):** ko izdaje, kako se održava peg, šta se dešava u krizi.  
+7) **Ne drži sve u jednoj tački kvara.** Diversifikacija može biti prosto “ne sve na jednom mestu/jednoj mreži”.
+
+## Zaključak
+
+Stablecoini su jedan od najkorisnijih alata u kriptu: olakšavaju trgovanje, transfer i svakodnevnu upotrebu. Ali stabilnost nije magija — ona zavisi od rezervi, likvidnosti, infrastrukture i poverenja.
+
+Ako želiš da koristiš stablecoine pametno: fokusiraj se na mrežu, otkup/rezerve i na to da izbegneš nepotrebne “prečice” (bridževe, nerealne prinose, sumnjive protokole). To je 80/20 koje pravi razliku.
+
+> **Disclaimer:** Tekst je informativnog karaktera i ne predstavlja investicioni, pravni niti bilo koji drugi vid profesionalnog saveta.

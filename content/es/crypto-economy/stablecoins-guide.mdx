@@ -1,0 +1,124 @@
+---
+title: "Guía de stablecoins: qué son, cómo funcionan y en qué suele fallar la gente"
+description: "USDT, USDC, DAI… las stablecoins son la ‘capa de efectivo’ del cripto, pero no están libres de riesgo. Esta guía evergreen explica tipos de stablecoins, depeg, reservas, redes, puentes y una checklist práctica para usarlas con más seguridad."
+date: "2026-01-07"
+category: "crypto-economy"
+image: "/images/crypto-economy/stablecoins-guide-hero.jpg"
+author: "InfoHelm Team"
+hero: "/images/crypto-economy/stablecoins-guide-hero.jpg"
+heroAlt: "Ilustración de un dólar digital (stablecoin) con un gráfico de estabilidad y una red cripto sobre fondo oscuro"
+tags: ["crypto-economy", "stablecoins", "usdt", "usdc", "defi", "risk"]
+---
+
+Una stablecoin es un token cripto diseñado para mantener un precio estable, normalmente vinculado a **1 USD**. La gente la usa como “efectivo” dentro del cripto: para aparcar valor entre operaciones, enviar dinero, usar DeFi, pagar y moverse rápido entre mercados.
+
+Pero “estable” no significa “sin riesgo”. Las stablecoins tienen puntos débiles: desde **depeg**, hasta riesgo del emisor y de las reservas, pasando por problemas de redes y puentes.
+
+![Ilustración de un dólar digital (stablecoin) con un gráfico de estabilidad y una red cripto sobre fondo oscuro](/images/crypto-economy/stablecoins-guide-hero.jpg)
+
+## Qué es lo que una stablecoin realmente estabiliza
+
+En la práctica, una stablecoin intenta mantener:
+- **precio** (por ejemplo, 1 token ≈ 1 USD),
+- **liquidez** (que puedas cambiarla fácilmente),
+- **redención** (un mecanismo que la devuelve hacia “1:1”, vía mercado o canje con el emisor).
+
+Cuando una de estas tres cosas falla, empiezan los problemas.
+
+## Los tres tipos principales de stablecoins
+
+### 1) Respaldadas por fiat (las más comunes)
+Están respaldadas por reservas en el sistema tradicional (efectivo, letras del tesoro a corto plazo, depósitos, etc.).
+
+**Pros:**
+- suelen ser las más estables en condiciones normales
+- mayor liquidez en exchanges y en DeFi
+
+**Riesgos:**
+- riesgo del emisor (empresa, bancos, presión regulatoria)
+- transparencia de reservas (frecuencia e independencia de auditorías/atestaciones)
+
+### 2) Respaldadas por cripto (sobrecolateralizadas)
+Se respaldan con colateral cripto on-chain, a menudo por un valor superior al de las stablecoins emitidas.
+
+**Pros:**
+- más automatización on-chain
+- colateral a menudo más verificable (se ve en cadena)
+
+**Riesgos:**
+- volatilidad del colateral → liquidaciones en momentos de estrés
+- riesgo de smart contracts
+
+### 3) Algorítmicas (las más arriesgadas)
+Intentan mantener la estabilidad mediante incentivos algorítmicos, sin reservas clásicas.
+
+**Pros:**
+- idea elegante en teoría
+
+**Riesgos:**
+- históricamente las que más fallan en escenarios de estrés
+- “espiral de muerte” cuando se pierde la confianza
+
+## Depeg: qué es y por qué ocurre
+
+Un **depeg** es cuando una stablecoin se aleja de 1 USD (por ejemplo, 0,97 o 1,03). Pequeñas desviaciones pueden ser normales, pero desviaciones grandes o persistentes son una bandera roja.
+
+Causas típicas:
+- pánico y ventas masivas (la liquidez no absorbe el golpe)
+- dudas sobre reservas o redención (“¿de verdad es 1:1?”)
+- problemas bancarios/partners del emisor
+- estrés general del mercado (huida hacia efectivo “real”)
+- problemas de red (congestión, fees altos, caídas)
+- puentes y versiones “wrapped” (no son lo mismo que el original)
+
+## Redes: la “misma” stablecoin que no es la misma
+
+USDT en Ethereum no es lo mismo que USDT en Tron o en BNB Chain en términos de infraestructura y riesgo de transferencia, aunque el ticker diga “USDT”.
+
+En la práctica:
+- **la red donde la guardas** afecta fees, velocidad y riesgo
+- enviar por la red equivocada es uno de los errores más comunes de principiantes
+
+**Regla de oro:** confirma *red + dirección* y haz un envío de prueba.
+
+## Puentes: el “atajo” más peligroso
+
+Cuando mueves stablecoins entre cadenas, a menudo usas:
+- un **bridge** que bloquea el original y emite una versión “wrapped” en otra cadena.
+
+Eso añade riesgos extra:
+- riesgo del bridge (los hacks de puentes han sido frecuentes históricamente)
+- riesgo del token wrapped (depende de la redención de vuelta al original)
+
+Regla evergreen:
+**cuantos menos puentes haya entre tú y la stablecoin “real”, mejor.**
+
+## “Alto rendimiento con stablecoins”: donde la gente pierde el sueño
+
+Si ves 20–50% de rendimiento “seguro” con una stablecoin, normalmente significa:
+- la estrategia asume riesgo adicional (crédito, liquidación, contrato),
+- o es una promo temporal que dura hasta que deja de durar.
+
+Visión realista:
+- sí, puede haber rendimiento, pero nunca es “sin riesgo”
+- el mayor riesgo no es el precio, sino el **mecanismo** que promete “estable + alto”
+
+## Checklist práctica para usar stablecoins sin drama
+
+1) **Verifica la red antes de enviar** (y haz siempre un envío de prueba).  
+2) **Usa direcciones oficiales del contrato del token** (no contratos random de comentarios).  
+3) **Separa roles:**  
+   - hot wallet para DeFi/transferencias  
+   - almacenamiento más “tranquilo” para saldos grandes  
+4) **Revisa approvals en DeFi** y revoca permisos innecesarios periódicamente.  
+5) **No persigas rendimientos que no puedas explicar.** Si no puedes resumir el origen del rendimiento en 2 frases, mejor pasa.  
+6) **Entiende lo básico de reservas/redención:** quién lo emite, cómo se defiende el peg, qué pasa en una crisis.  
+7) **Evita puntos únicos de fallo.** Diversificar puede ser tan simple como “no todo en un solo lugar / una sola cadena”.
+
+## Conclusión
+
+Las stablecoins son una de las herramientas más útiles en cripto: facilitan trading, transferencias y uso cotidiano. Pero la estabilidad no es magia: depende de reservas, liquidez, infraestructura y confianza.
+
+Si quieres usarlas con cabeza, pon el foco en la red, la redención/reservas y en evitar atajos innecesarios (puentes, rendimientos irreales, protocolos dudosos). Ese es el 80/20 que marca la diferencia.
+
+> **Disclaimer:** Este artículo es solo informativo y no constituye asesoramiento de inversión, legal ni de ningún otro tipo.
