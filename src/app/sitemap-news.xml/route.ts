@@ -25,7 +25,7 @@ export async function GET() {
 
   const all = await listAllArticles();
 
-  // Učitaj front-matter i zadrži samo poslednjih 48h po jeziku
+ 
   const enriched = await Promise.all(
     all.map(async (e) => {
       try {
