@@ -20,7 +20,8 @@ const PUB_LANG: Record<Locale, string> = {
 
 export async function GET() {
   const now = Date.now();
-  const cutoff = now - 48 * 60 * 60 * 1000; // 48h
+  const cutoff = now - 7 * 24 * 60 * 60 * 1000; // 7 dana
+
 
   const all = await listAllArticles();
 
@@ -49,9 +50,12 @@ export async function GET() {
 
   const recent = enriched.filter((p) => p.ts && p.ts >= cutoff);
 
-  // Sort opadajuće (novije prvo) i limit (Google News ne treba ogroman feed)
-  recent.sort((a, b) => b.ts - a.ts);
-  const top = recent.slice(0, 100);
+  // ako nema ničega u zadnjih 7 dana, uzmi bar 1 najnoviji
+  const pool = recent.length ? recent : enriched.filter(p => p.ts).sort((a,b)=>b.ts-a.ts).slice(0,1);
+
+  pool.sort((a, b) => b.ts - a.ts);
+  const top = pool.slice(0, 100);
+
 
   const xmlItems = top
     .map((item) => {
@@ -89,5 +93,11 @@ ${xmlItems}
 }
 
 function escapeXml(s: string) {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
 }
+
