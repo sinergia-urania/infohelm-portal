@@ -6,16 +6,14 @@ import { NextResponse } from 'next/server';
  * Kad dobiješ svoj pravi publisher ID, zameni "pub-000...".
  */
 export function GET() {
-  const body = [
-    'google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0',
-    // Dodaj po potrebi druge SSP linije
-    '',
-  ].join('\n');
+  const lines = [
+    "google.com, pub-2786609619751533, DIRECT, f08c47fec0942fa0",
+  ].join("\n");
 
-  return new NextResponse(body, {
+  return new NextResponse(lines, {
     headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'public, max-age=86400', // 24h
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, max-age=86400",
     },
   });
 }
